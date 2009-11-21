@@ -30,7 +30,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="LuaJIT-1.1.5\src\" />
+			<Add directory="..\lib\LuaJIT-1.1.5\src\" />
 		</Compiler>
 		<Linker>
 			<Add option="-static-libgcc" />
@@ -38,7 +38,7 @@
 			<Add library="user32" />
 			<Add library="kernel32" />
 			<Add library="opengl32" />
-			<Add library="LuaJIT-1.1.5\src\liblua.a" />
+			<Add library="..\lib\LuaJIT-1.1.5\src\liblua.a" />
 			<Add library="libz" />
 		</Linker>
 		<Unit filename="extensions.cpp">
@@ -65,24 +65,24 @@
 		<Unit filename="scripts.h" />
 		<Unit filename="shader.cpp" />
 		<Unit filename="shader.h" />
-		<Unit filename="simple1.frag" />
-		<Unit filename="simple1.vert" />
-		<Unit filename="text.frag" />
-		<Unit filename="text.vert" />
 		<Unit filename="time.cpp" />
 		<Unit filename="time.h" />
-		<Unit filename="tutorial4.frag" />
-		<Unit filename="tutorial4.geom" />
-		<Unit filename="tutorial4.vert" />
-		<Unit filename="vertex_normal.frag" />
-		<Unit filename="vertex_normal.geom" />
-		<Unit filename="vertex_normal.vert" />
-		<Unit filename="vertex_normal_color.frag" />
-		<Unit filename="vertex_normal_color.vert" />
-		<Unit filename="vertex_normal_uv.frag" />
-		<Unit filename="vertex_normal_uv.vert" />
-		<Unit filename="vertex_normal_uv_color.frag" />
-		<Unit filename="vertex_normal_uv_color.vert" />
+		<Unit filename="shaders\simple1.frag" />
+		<Unit filename="shaders\simple1.vert" />
+		<Unit filename="shaders\text.frag" />
+		<Unit filename="shaders\text.vert" />
+		<Unit filename="shaders\tutorial4.frag" />
+		<Unit filename="shaders\tutorial4.geom" />
+		<Unit filename="shaders\tutorial4.vert" />
+		<Unit filename="shaders\vertex_normal.frag" />
+		<Unit filename="shaders\vertex_normal.geom" />
+		<Unit filename="shaders\vertex_normal.vert" />
+		<Unit filename="shaders\vertex_normal_color.frag" />
+		<Unit filename="shaders\vertex_normal_color.vert" />
+		<Unit filename="shaders\vertex_normal_uv.frag" />
+		<Unit filename="shaders\vertex_normal_uv.vert" />
+		<Unit filename="shaders\vertex_normal_uv_color.frag" />
+		<Unit filename="shaders\vertex_normal_uv_color.vert" />
 		<Extensions>
 			<code_completion />
 			<envvars />

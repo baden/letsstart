@@ -324,7 +324,7 @@
 
 1257853183 e:\baden\games\thebestorpg\letsstart\src\math.h
 
-1258728358 source:e:\baden\games\thebestorpg\letsstart\src\main.cpp
+1258815181 source:e:\baden\games\thebestorpg\letsstart\src\main.cpp
 	<windows.h>
 	<stdio.h>
 	<gl/gl.h>
@@ -434,7 +434,7 @@
 1224885600 e:\baden\games\thebestorpg\letsstart\src\luajit-1.1.5\src\\lualib.h
 	"lua.h"
 
-1258726878 source:e:\baden\games\thebestorpg\letsstart\src\shader.cpp
+1258839980 source:e:\baden\games\thebestorpg\letsstart\src\shader.cpp
 	<stdlib.h>
 	<stdio.h>
 	<gl3/gl3.h>
@@ -444,4 +444,30 @@
 1257110028 source:e:\baden\games\thebestorpg\letsstart\src\time.cpp
 	<windows.h>
 	"time.h"
+
+1224885600 e:\baden\games\thebestorpg\letsstart\lib\luajit-1.1.5\src\\lua.h
+	<stdarg.h>
+	<stddef.h>
+	"luaconf.h"
+
+1224885600 e:\baden\games\thebestorpg\letsstart\lib\luajit-1.1.5\src\\luaconf.h
+	<limits.h>
+	<stddef.h>
+	<unistd.h>
+	<io.h>
+	<stdio.h>
+	<stdio.h>
+	<readline/readline.h>
+	<readline/history.h>
+	<assert.h>
+	<math.h>
+	<unistd.h>
+
+1224885600 e:\baden\games\thebestorpg\letsstart\lib\luajit-1.1.5\src\\lauxlib.h
+	<stddef.h>
+	<stdio.h>
+	"lua.h"
+
+1224885600 e:\baden\games\thebestorpg\letsstart\lib\luajit-1.1.5\src\\lualib.h
+	"lua.h"
 

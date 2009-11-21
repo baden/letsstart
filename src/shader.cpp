@@ -69,10 +69,16 @@ void initShader(tShader *shader, const char *vertfilename, const char *geomfilen
     geometrysource = filetobuf("tutorial4.geom");
     fragmentsource = filetobuf("tutorial4.frag");
 */
-    shader->vertexsource = filetobuf(vertfilename);
-    if(geomfilename) shader->geometrysource = filetobuf(geomfilename);
+    char shaderpath[128];
+    sprintf(shaderpath, "shaders\\%s", vertfilename);
+    shader->vertexsource = filetobuf(shaderpath);
+    if(geomfilename){
+        sprintf(shaderpath, "shaders\\%s", geomfilename);
+        shader->geometrysource = filetobuf(shaderpath);
+    }
     else shader->geometrysource = NULL;
-    shader->fragmentsource = filetobuf(fragfilename);
+    sprintf(shaderpath, "shaders\\%s", fragfilename);
+    shader->fragmentsource = filetobuf(shaderpath);
 
     /* Assign our handles a "name" to new shader objects */
     shader->vertexshader = glCreateShader(GL_VERTEX_SHADER);
@@ -120,7 +126,7 @@ void initShader(tShader *shader, const char *vertfilename, const char *geomfilen
     shader->colour_u = glGetUniformLocation(shader->shaderprogram, "colour");
     shader->modelview_u = glGetUniformLocation(shader->shaderprogram, "modelview");
 
-    fprintf(stderr, "SH: %08X - %d, %d, %d, %d\n", shader, shader->projection_u, shader->light_pos_u, shader->colour_u, shader->modelview_u );
+//    fprintf(stderr, "SH: %08X - %d, %d, %d, %d\n", shader, shader->projection_u, shader->light_pos_u, shader->colour_u, shader->modelview_u );
 
 //    if(shader->light_pos_u != -1) glUniform4fv(shader->light_pos_u, 1, light_pos);
 
