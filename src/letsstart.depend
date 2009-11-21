@@ -471,3 +471,174 @@
 1224885600 e:\baden\games\thebestorpg\letsstart\lib\luajit-1.1.5\src\\lualib.h
 	"lua.h"
 
+1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\extensions.cpp
+	<stdio.h>
+	"extensions.h"
+
+1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\extensions.h
+	<windows.h>
+	<stdbool.h>
+	<GL3/gl3.h>
+
+1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\gldraw.cpp
+	"gl/gl3.h"
+	"gldraw.h"
+
+1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\gl\gl3.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\gldraw.h
+
+1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\gltext.cpp
+	"letters.h"
+	<gl3/gl3.h>
+	<string.h>
+	"extensions.h"
+	"ply.h"
+	"gltext.h"
+	"gldraw.h"
+	"matrix.h"
+	"shader.h"
+	"math.h"
+
+1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\letters.h
+
+1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\ply.h
+	"gl/gl.h"
+
+1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\gltext.h
+
+1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\matrix.h
+
+1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\shader.h
+
+1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\math.h
+
+1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\main.cpp
+	<windows.h>
+	<stdio.h>
+	<gl/gl.h>
+	<gl3/gl3.h>
+	<math.h>
+	"GL/glext.h"
+	"GL/wglext.h"
+	"extensions.h"
+	"matrix.h"
+	"ply.h"
+	"time.h"
+	"gltext.h"
+	"gldraw.h"
+	"shader.h"
+	"scripts.h"
+	"object.h"
+	"math.h"
+
+1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\gl\glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\gl\wglext.h
+	<windows.h>
+
+1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\time.h
+
+1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\scripts.h
+
+1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\object.h
+	"gl/gl.h"
+
+1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\map.cpp
+	"map.h"
+
+1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\map.h
+	"object.h"
+
+1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\math.cpp
+	<stdio.h>
+	<inttypes.h>
+	"math.h"
+
+1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\matrix.cpp
+	<math.h>
+	<GL3/gl3.h>
+	"matrix.h"
+
+1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\object.cpp
+	<vector>
+	<zlib.h>
+	<gl3/gl3.h>
+	"extensions.h"
+	"object.h"
+	"matrix.h"
+	"shader.h"
+	"math.h"
+
+1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\ply.cpp
+	<windows.h>
+	<stdlib.h>
+	<stdio.h>
+	<strings.h>
+	<gl3/gl3.h>
+	"ply.h"
+	"extensions.h"
+	"shader.h"
+	"matrix.h"
+
+1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\scripts.cpp
+	<stdlib.h>
+	<stdio.h>
+	"scripts.h"
+	"lua.h"
+	"lauxlib.h"
+	"lualib.h"
+
+1224885600 e:\baden\games\thebestorpg\letsstart\svn\letsstart\lib\luajit-1.1.5\src\\lua.h
+	<stdarg.h>
+	<stddef.h>
+	"luaconf.h"
+
+1224885600 e:\baden\games\thebestorpg\letsstart\svn\letsstart\lib\luajit-1.1.5\src\\luaconf.h
+	<limits.h>
+	<stddef.h>
+	<unistd.h>
+	<io.h>
+	<stdio.h>
+	<stdio.h>
+	<readline/readline.h>
+	<readline/history.h>
+	<assert.h>
+	<math.h>
+	<unistd.h>
+
+1224885600 e:\baden\games\thebestorpg\letsstart\svn\letsstart\lib\luajit-1.1.5\src\\lauxlib.h
+	<stddef.h>
+	<stdio.h>
+	"lua.h"
+
+1224885600 e:\baden\games\thebestorpg\letsstart\svn\letsstart\lib\luajit-1.1.5\src\\lualib.h
+	"lua.h"
+
+1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\shader.cpp
+	<stdlib.h>
+	<stdio.h>
+	<gl3/gl3.h>
+	"shader.h"
+	"extensions.h"
+
+1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\time.cpp
+	<windows.h>
+	"time.h"
+
