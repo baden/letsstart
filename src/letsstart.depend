@@ -496,7 +496,7 @@
 
 1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\gldraw.h
 
-1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\gltext.cpp
+1258844769 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\gltext.cpp
 	"letters.h"
 	<gl3/gl3.h>
 	<string.h>
@@ -521,7 +521,7 @@
 
 1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\math.h
 
-1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\main.cpp
+1258844749 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\main.cpp
 	<windows.h>
 	<stdio.h>
 	<gl/gl.h>
@@ -531,7 +531,6 @@
 	"GL/wglext.h"
 	"extensions.h"
 	"matrix.h"
-	"ply.h"
 	"time.h"
 	"gltext.h"
 	"gldraw.h"

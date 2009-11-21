@@ -3,12 +3,13 @@
 
 #include "letters.h"
 //#include <GL/gl.h>
+#include"gl/gl.h"
 #include <gl3/gl3.h>
 
 #include <string.h>
 
 #include "extensions.h"
-#include "ply.h"
+//#include "ply.h"
 //#include "circle.h"
 //#include <stdio.h>
 //#include "physic.h"
@@ -230,7 +231,7 @@ void DrawChar(unsigned char ch, bool smooth)
 void drawText(float x, float y, int app)
 {
 	char *text = draw_text;
-	float text_shift = (float)strlen(text)/3.65;
+//	float text_shift = (float)strlen(text)/3.65;
 
     GLfloat identitymatrix[16] = IDENTITY_MATRIX4;
 

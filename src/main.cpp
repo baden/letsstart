@@ -8,7 +8,7 @@
 #include "GL/wglext.h"
 #include "extensions.h"
 #include "matrix.h"
-#include "ply.h"
+//#include "ply.h"
 #include "time.h"
 
 #include "gltext.h"
@@ -44,11 +44,11 @@ PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = NULL;
 
 //GLuint vao, vbo[2]; /* Create handles for our Vertex Array Object and three Vertex Buffer Objects */
 
-tPlyModel model01;
-tPlyModel model02;
-tPlyModel model03;
-tPlyModel model04;
-tPlyModel flatfloor;
+//tPlyModel model01;
+//tPlyModel model02;
+//tPlyModel model03;
+//tPlyModel model04;
+//tPlyModel flatfloor;
 
 GLfloat cameramatrix[16] = IDENTITY_MATRIX4;
 GLfloat projectionmatrix[16]; /* Our projection matrix starts with all 0s */
@@ -84,13 +84,13 @@ void DoPrepare()
     ShaderSetCurent(SHADER_VERTEX_NORMAL);
 
 //    PlyLoader("blender/char1.bdm", &model01);
-    PlyLoader("../blender/char2c.bdm", &model01);
-    PlyLoader("../blender/char5.bdm", &model02);
-    PlyLoader("../blender/char1.bdm", &model03);
-    PlyLoader("../blender/char6.bdm", &model04);
+//    PlyLoader("../blender/char2c.bdm", &model01);
+//    PlyLoader("../blender/char5.bdm", &model02);
+//    PlyLoader("../blender/char1.bdm", &model03);
+//    PlyLoader("../blender/char6.bdm", &model04);
 //        glDisableVertexAttribArray(3);
 
-    PlyLoader("../blender/flatfloor.bdm", &flatfloor);
+//    PlyLoader("../blender/flatfloor.bdm", &flatfloor);
 //    glUseProgram(shaderprogram);
         //PlyLoader("blender/box.bdm", &model01);
     ShaderSetCurent(SHADER_TEXT);
@@ -109,6 +109,8 @@ void DoPrepare()
         fprintf(stderr, "Resilt for %f -> HALF -> float = %f  (diff=%f)\n", f1, f2, f2-f1);
     }
 */
+    ObjectLoad("../blender/models/Zabor.bdsm2.gz");
+    ObjectLoad("../blender/models/FlatFloor.bdsm2.gz");
     ObjectLoad("../blender/models/Sintel.bdsm2.gz");
     ObjectLoad("../blender/models/Animation.bdsm2.gz");
 //    ObjectLoad("../blender/models/Collect1.bdsm2.gz");
@@ -158,11 +160,11 @@ void DoDone()
 {
     ObjectUnloadAll();
     textDone();
-    PlyDone(&flatfloor);
-    PlyDone(&model04);
-    PlyDone(&model03);
-    PlyDone(&model02);
-    PlyDone(&model01);
+//    PlyDone(&flatfloor);
+//    PlyDone(&model04);
+//    PlyDone(&model03);
+//    PlyDone(&model02);
+//    PlyDone(&model01);
 
 //    glDeleteBuffers(2, vbo);
 //    glDeleteVertexArrays(1, &vao);
@@ -253,7 +255,8 @@ void DoDraw(HDC hDC)
     for(int iy=0; iy<16; iy++){
         for(int ix=0; ix<24; ix++){
             CUR_COLOR(0.5f, 0.5f, 0.0f);
-            PlyDraw(&flatfloor);
+//            PlyDraw(&flatfloor);
+            ObjectDraw(1, frame);
 
             if(ix!=2 && ix!=14 && iy && iy!=14){
                 rotate_r(modelmatrix, 25.0*(ix+iy*2), Z_AXIS);
@@ -261,7 +264,7 @@ void DoDraw(HDC hDC)
 //            glUniformMatrix4fv(shader_current->modelview_u, 1, GL_FALSE, commmatrix);
                 CUR_COLOR(0.0f, 1.0f, 0.0f);
                 //PlyDraw(&model02);
-                ObjectDraw(1+((ix+iy)%5), frame);
+                ObjectDraw(3+((ix+iy)%5), frame);
                 rotate_r(modelmatrix, -25.0*(ix+iy*2), Z_AXIS);
             }
             translate(modelmatrix, MAP_DX, 0.0, 0.0);
@@ -274,16 +277,20 @@ void DoDraw(HDC hDC)
     memcpy(modelmatrix, identitymatrix, sizeof(GLfloat) * 16);
     rotate_r(modelmatrix, 90, Z_AXIS);
     for(int ix=0; ix<24; ix++){
-        PlyDraw(&model04);
+        //PlyDraw(&model04);
+        ObjectDraw(0, frame);
         translate(modelmatrix, 0.00, MAP_DY*14, 0.0);
-        PlyDraw(&model04);
+        ObjectDraw(0, frame);
+        //PlyDraw(&model04);
         translate(modelmatrix, MAP_DX, -MAP_DY*14, 0.0);
     }
     memcpy(modelmatrix, identitymatrix, sizeof(GLfloat) * 16);
     for(int ix=0; ix<15; ix++){
-        PlyDraw(&model04);
+        //PlyDraw(&model04);
+        ObjectDraw(0, frame);
         translate(modelmatrix, MAP_DX*14, 0.00, 0.0);
-        PlyDraw(&model04);
+        //PlyDraw(&model04);
+        ObjectDraw(0, frame);
         translate(modelmatrix, -MAP_DX*14, MAP_DY, 0.0);
     }
 //    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -335,7 +342,8 @@ void DoDraw(HDC hDC)
     //glDisable(GL_DEPTH_TEST);
     for(int i=0; i<18; i++){
 //        glUniformMatrix4fv(shader_current->modelview_u, 1, GL_FALSE, modelmatrix);
-        PlyDraw(&model02);
+        //PlyDraw(&model02);
+        ObjectDraw(3, frame);
         //glDrawElements(GL_TRIANGLES, model01.index_size, GL_UNSIGNED_SHORT, (GLvoid*)0);
         translate(modelmatrix, 0.2f, 0.0f, 0.0);
     }

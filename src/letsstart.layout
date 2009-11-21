@@ -10,17 +10,17 @@
 	<File name="gldraw.cpp" open="0" top="0" tabpos="20">
 		<Cursor position="1199" topLine="2" />
 	</File>
-	<File name="gldraw.h" open="1" top="0" tabpos="4">
+	<File name="gldraw.h" open="1" top="0" tabpos="2">
 		<Cursor position="127" topLine="0" />
 	</File>
-	<File name="gltext.cpp" open="1" top="0" tabpos="10">
-		<Cursor position="1132" topLine="43" />
+	<File name="gltext.cpp" open="1" top="1" tabpos="8">
+		<Cursor position="93" topLine="0" />
 	</File>
 	<File name="gltext.h" open="0" top="0" tabpos="11">
 		<Cursor position="154" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="3684" topLine="109" />
+		<Cursor position="231" topLine="0" />
 	</File>
 	<File name="map.cpp" open="0" top="0" tabpos="9">
 		<Cursor position="20" topLine="0" />
@@ -28,7 +28,7 @@
 	<File name="map.h" open="0" top="0" tabpos="10">
 		<Cursor position="414" topLine="0" />
 	</File>
-	<File name="math.cpp" open="1" top="0" tabpos="9">
+	<File name="math.cpp" open="1" top="0" tabpos="7">
 		<Cursor position="698" topLine="9" />
 	</File>
 	<File name="math.h" open="0" top="0" tabpos="14">
@@ -40,17 +40,11 @@
 	<File name="matrix.h" open="0" top="0" tabpos="7">
 		<Cursor position="1297" topLine="0" />
 	</File>
-	<File name="object.cpp" open="1" top="1" tabpos="7">
+	<File name="object.cpp" open="1" top="0" tabpos="5">
 		<Cursor position="38" topLine="0" />
 	</File>
-	<File name="object.h" open="1" top="0" tabpos="8">
+	<File name="object.h" open="1" top="0" tabpos="6">
 		<Cursor position="1392" topLine="48" />
-	</File>
-	<File name="ply.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="16587" topLine="361" />
-	</File>
-	<File name="ply.h" open="1" top="0" tabpos="3">
-		<Cursor position="1006" topLine="42" />
 	</File>
 	<File name="scripts.cpp" open="0" top="0" tabpos="14">
 		<Cursor position="1316" topLine="31" />
@@ -58,10 +52,10 @@
 	<File name="scripts.h" open="0" top="0" tabpos="15">
 		<Cursor position="61" topLine="0" />
 	</File>
-	<File name="shader.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="5867" topLine="135" />
+	<File name="shader.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="7544" topLine="169" />
 	</File>
-	<File name="shader.h" open="1" top="0" tabpos="6">
+	<File name="shader.h" open="1" top="0" tabpos="4">
 		<Cursor position="1516" topLine="0" />
 	</File>
 	<File name="time.cpp" open="0" top="0" tabpos="8">
