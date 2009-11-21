@@ -1,0 +1,447 @@
+# depslib dependency file v1.0
+1258728358 source:e:\baden\games\thebestorpg\letsstart\main.cpp
+	<windows.h>
+	<stdio.h>
+	<gl/gl.h>
+	<gl3/gl3.h>
+	<math.h>
+	"GL/glext.h"
+	"GL/wglext.h"
+	"extensions.h"
+	"matrix.h"
+	"ply.h"
+	"time.h"
+	"gltext.h"
+	"gldraw.h"
+	"shader.h"
+	"scripts.h"
+	"object.h"
+	"math.h"
+
+1251750380 e:\baden\games\thebestorpg\letsstart\gl\wglext.h
+	<windows.h>
+
+1251750368 e:\baden\games\thebestorpg\letsstart\gl\glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1257200046 e:\baden\games\thebestorpg\letsstart\extensions.h
+	<windows.h>
+	<stdbool.h>
+	<GL3/gl3.h>
+
+1256830689 source:e:\baden\games\thebestorpg\letsstart\extensions.c
+	<stdio.h>
+	"extensions.h"
+
+1257200065 source:e:\baden\games\thebestorpg\letsstart\extensions.cpp
+	<stdio.h>
+	"extensions.h"
+
+1257109648 source:e:\baden\games\thebestorpg\letsstart\matrix.cpp
+	<math.h>
+	<GL3/gl3.h>
+	"matrix.h"
+
+1257109646 e:\baden\games\thebestorpg\letsstart\matrix.h
+
+1257988760 source:e:\baden\games\thebestorpg\letsstart\ply.cpp
+	<windows.h>
+	<stdlib.h>
+	<stdio.h>
+	<strings.h>
+	<gl3/gl3.h>
+	"ply.h"
+	"extensions.h"
+	"shader.h"
+	"matrix.h"
+
+1257628066 e:\baden\games\thebestorpg\letsstart\ply.h
+	"gl/gl.h"
+
+1257170681 source:g:\my\thebestorpg\letsstart\main.cpp
+	<windows.h>
+	<stdio.h>
+	<gl/gl.h>
+	<gl3/gl3.h>
+	<math.h>
+	"GL/glext.h"
+	"GL/wglext.h"
+	"extensions.h"
+	"matrix.h"
+	"ply.h"
+	"time.h"
+	"gltext.h"
+	"gldraw.h"
+	"shader.h"
+
+1251750367 g:\my\thebestorpg\letsstart\gl\glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1251750378 g:\my\thebestorpg\letsstart\gl\wglext.h
+	<windows.h>
+
+1256838614 g:\my\thebestorpg\letsstart\extensions.h
+	<windows.h>
+	<stdbool.h>
+	<GL3/gl3.h>
+
+1257109645 g:\my\thebestorpg\letsstart\matrix.h
+
+1256899875 g:\my\thebestorpg\letsstart\ply.h
+	"gl/gl.h"
+
+1257109646 source:g:\my\thebestorpg\letsstart\matrix.cpp
+	<math.h>
+	<GL3/gl3.h>
+	"matrix.h"
+
+1256948557 source:g:\my\thebestorpg\letsstart\ply.cpp
+	<windows.h>
+	<stdlib.h>
+	<stdio.h>
+	<strings.h>
+	<gl3/gl3.h>
+	"ply.h"
+	"extensions.h"
+
+1256838628 source:g:\my\thebestorpg\letsstart\extensions.cpp
+	<stdio.h>
+	"extensions.h"
+
+1257110026 source:g:\my\thebestorpg\letsstart\time.cpp
+	<windows.h>
+	"time.h"
+
+1257110110 g:\my\thebestorpg\letsstart\time.h
+
+1257170605 source:g:\my\thebestorpg\letsstart\gltext.cpp
+	"letters.h"
+	<gl3/gl3.h>
+	<string.h>
+	"extensions.h"
+	"ply.h"
+	"gltext.h"
+	"gldraw.h"
+	"matrix.h"
+	"shader.h"
+
+1257118718 g:\my\thebestorpg\letsstart\gltext.h
+
+1225045190 g:\my\thebestorpg\letsstart\letters.h
+
+1257123538 source:g:\my\thebestorpg\letsstart\gldraw.cpp
+
+1257123653 g:\my\thebestorpg\letsstart\gldraw.h
+
+1257170536 g:\my\thebestorpg\letsstart\shader.h
+
+1257170559 source:g:\my\thebestorpg\letsstart\shader.cpp
+	<stdlib.h>
+	<stdio.h>
+	<gl3/gl3.h>
+	"shader.h"
+	"extensions.h"
+
+1258666413 source:e:\baden\games\thebestorpg\letsstart\gldraw.cpp
+	"gl/gl3.h"
+	"gldraw.h"
+
+1258728275 source:e:\baden\games\thebestorpg\letsstart\gltext.cpp
+	"letters.h"
+	<gl3/gl3.h>
+	<string.h>
+	"extensions.h"
+	"ply.h"
+	"gltext.h"
+	"gldraw.h"
+	"matrix.h"
+	"shader.h"
+	"math.h"
+
+1225045190 e:\baden\games\thebestorpg\letsstart\letters.h
+
+1257118720 e:\baden\games\thebestorpg\letsstart\gltext.h
+
+1257123654 e:\baden\games\thebestorpg\letsstart\gldraw.h
+
+1258725860 e:\baden\games\thebestorpg\letsstart\shader.h
+
+1257110112 e:\baden\games\thebestorpg\letsstart\time.h
+
+1258726878 source:e:\baden\games\thebestorpg\letsstart\shader.cpp
+	<stdlib.h>
+	<stdio.h>
+	<gl3/gl3.h>
+	"shader.h"
+	"extensions.h"
+
+1257110028 source:e:\baden\games\thebestorpg\letsstart\time.cpp
+	<windows.h>
+	"time.h"
+
+1257371929 source:e:\baden\games\thebestorpg\letsstart\map.cpp
+	"map.h"
+
+1257633054 e:\baden\games\thebestorpg\letsstart\map.h
+	"object.h"
+
+1258682737 source:e:\baden\games\thebestorpg\letsstart\object.cpp
+	<vector>
+	<zlib.h>
+	<gl3/gl3.h>
+	"extensions.h"
+	"object.h"
+	"matrix.h"
+	"shader.h"
+	"math.h"
+
+1258681440 e:\baden\games\thebestorpg\letsstart\object.h
+	"gl/gl.h"
+
+1257692803 source:e:\baden\games\thebestorpg\letsstart\scripts.cpp
+	<stdlib.h>
+	<stdio.h>
+	"scripts.h"
+	"lua.h"
+	"lauxlib.h"
+	"lualib.h"
+
+1257692751 e:\baden\games\thebestorpg\letsstart\scripts.h
+
+1224885600 e:\baden\games\thebestorpg\letsstart\luajit-1.1.5\src\\lua.h
+	<stdarg.h>
+	<stddef.h>
+	"luaconf.h"
+
+1224885600 e:\baden\games\thebestorpg\letsstart\luajit-1.1.5\src\\luaconf.h
+	<limits.h>
+	<stddef.h>
+	<unistd.h>
+	<io.h>
+	<stdio.h>
+	<stdio.h>
+	<readline/readline.h>
+	<readline/history.h>
+	<assert.h>
+	<math.h>
+	<unistd.h>
+
+1224885600 e:\baden\games\thebestorpg\letsstart\luajit-1.1.5\src\\lauxlib.h
+	<stddef.h>
+	<stdio.h>
+	"lua.h"
+
+1224885600 e:\baden\games\thebestorpg\letsstart\luajit-1.1.5\src\\lualib.h
+	"lua.h"
+
+1257853183 source:e:\baden\games\thebestorpg\letsstart\math.cpp
+	<stdio.h>
+	<inttypes.h>
+	"math.h"
+
+1257853183 e:\baden\games\thebestorpg\letsstart\math.h
+
+1096855046 e:\baden\games\thebestorpg\letsstart\zlib\zlib.h
+	"zconf.h"
+
+1085945880 e:\baden\games\thebestorpg\letsstart\zlib\zconf.h
+	<windows.h>
+	<sys/types.h>
+	<unistd.h>
+	<unixio.h>
+
+1251751484 e:\baden\games\thebestorpg\letsstart\gl\gl3.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1257200065 source:e:\baden\games\thebestorpg\letsstart\src\extensions.cpp
+	<stdio.h>
+	"extensions.h"
+
+1257200046 e:\baden\games\thebestorpg\letsstart\src\extensions.h
+	<windows.h>
+	<stdbool.h>
+	<GL3/gl3.h>
+
+1258666413 source:e:\baden\games\thebestorpg\letsstart\src\gldraw.cpp
+	"gl/gl3.h"
+	"gldraw.h"
+
+1251751484 e:\baden\games\thebestorpg\letsstart\src\gl\gl3.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1257123654 e:\baden\games\thebestorpg\letsstart\src\gldraw.h
+
+1258728275 source:e:\baden\games\thebestorpg\letsstart\src\gltext.cpp
+	"letters.h"
+	<gl3/gl3.h>
+	<string.h>
+	"extensions.h"
+	"ply.h"
+	"gltext.h"
+	"gldraw.h"
+	"matrix.h"
+	"shader.h"
+	"math.h"
+
+1225045190 e:\baden\games\thebestorpg\letsstart\src\letters.h
+
+1257628066 e:\baden\games\thebestorpg\letsstart\src\ply.h
+	"gl/gl.h"
+
+1257118720 e:\baden\games\thebestorpg\letsstart\src\gltext.h
+
+1257109646 e:\baden\games\thebestorpg\letsstart\src\matrix.h
+
+1258725860 e:\baden\games\thebestorpg\letsstart\src\shader.h
+
+1257853183 e:\baden\games\thebestorpg\letsstart\src\math.h
+
+1258728358 source:e:\baden\games\thebestorpg\letsstart\src\main.cpp
+	<windows.h>
+	<stdio.h>
+	<gl/gl.h>
+	<gl3/gl3.h>
+	<math.h>
+	"GL/glext.h"
+	"GL/wglext.h"
+	"extensions.h"
+	"matrix.h"
+	"ply.h"
+	"time.h"
+	"gltext.h"
+	"gldraw.h"
+	"shader.h"
+	"scripts.h"
+	"object.h"
+	"math.h"
+
+1251750368 e:\baden\games\thebestorpg\letsstart\src\gl\glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1251750380 e:\baden\games\thebestorpg\letsstart\src\gl\wglext.h
+	<windows.h>
+
+1257110112 e:\baden\games\thebestorpg\letsstart\src\time.h
+
+1257692751 e:\baden\games\thebestorpg\letsstart\src\scripts.h
+
+1258681440 e:\baden\games\thebestorpg\letsstart\src\object.h
+	"gl/gl.h"
+
+1257371929 source:e:\baden\games\thebestorpg\letsstart\src\map.cpp
+	"map.h"
+
+1257633054 e:\baden\games\thebestorpg\letsstart\src\map.h
+	"object.h"
+
+1257853183 source:e:\baden\games\thebestorpg\letsstart\src\math.cpp
+	<stdio.h>
+	<inttypes.h>
+	"math.h"
+
+1257109648 source:e:\baden\games\thebestorpg\letsstart\src\matrix.cpp
+	<math.h>
+	<GL3/gl3.h>
+	"matrix.h"
+
+1258682737 source:e:\baden\games\thebestorpg\letsstart\src\object.cpp
+	<vector>
+	<zlib.h>
+	<gl3/gl3.h>
+	"extensions.h"
+	"object.h"
+	"matrix.h"
+	"shader.h"
+	"math.h"
+
+1257988760 source:e:\baden\games\thebestorpg\letsstart\src\ply.cpp
+	<windows.h>
+	<stdlib.h>
+	<stdio.h>
+	<strings.h>
+	<gl3/gl3.h>
+	"ply.h"
+	"extensions.h"
+	"shader.h"
+	"matrix.h"
+
+1257692803 source:e:\baden\games\thebestorpg\letsstart\src\scripts.cpp
+	<stdlib.h>
+	<stdio.h>
+	"scripts.h"
+	"lua.h"
+	"lauxlib.h"
+	"lualib.h"
+
+1224885600 e:\baden\games\thebestorpg\letsstart\src\luajit-1.1.5\src\\lua.h
+	<stdarg.h>
+	<stddef.h>
+	"luaconf.h"
+
+1224885600 e:\baden\games\thebestorpg\letsstart\src\luajit-1.1.5\src\\luaconf.h
+	<limits.h>
+	<stddef.h>
+	<unistd.h>
+	<io.h>
+	<stdio.h>
+	<stdio.h>
+	<readline/readline.h>
+	<readline/history.h>
+	<assert.h>
+	<math.h>
+	<unistd.h>
+
+1224885600 e:\baden\games\thebestorpg\letsstart\src\luajit-1.1.5\src\\lauxlib.h
+	<stddef.h>
+	<stdio.h>
+	"lua.h"
+
+1224885600 e:\baden\games\thebestorpg\letsstart\src\luajit-1.1.5\src\\lualib.h
+	"lua.h"
+
+1258726878 source:e:\baden\games\thebestorpg\letsstart\src\shader.cpp
+	<stdlib.h>
+	<stdio.h>
+	<gl3/gl3.h>
+	"shader.h"
+	"extensions.h"
+
+1257110028 source:e:\baden\games\thebestorpg\letsstart\src\time.cpp
+	<windows.h>
+	"time.h"
+

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="letsstart" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin\Debug\letsstart" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\letsstart" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="LuaJIT-1.1.5\src\" />
+		</Compiler>
+		<Linker>
+			<Add option="-static-libgcc" />
+			<Add library="gdi32" />
+			<Add library="user32" />
+			<Add library="kernel32" />
+			<Add library="opengl32" />
+			<Add library="LuaJIT-1.1.5\src\liblua.a" />
+			<Add library="libz" />
+		</Linker>
+		<Unit filename="extensions.cpp">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="extensions.h" />
+		<Unit filename="gldraw.cpp" />
+		<Unit filename="gldraw.h" />
+		<Unit filename="gltext.cpp" />
+		<Unit filename="gltext.h" />
+		<Unit filename="letters.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="map.cpp" />
+		<Unit filename="map.h" />
+		<Unit filename="math.cpp" />
+		<Unit filename="math.h" />
+		<Unit filename="matrix.cpp" />
+		<Unit filename="matrix.h" />
+		<Unit filename="object.cpp" />
+		<Unit filename="object.h" />
+		<Unit filename="ply.cpp" />
+		<Unit filename="ply.h" />
+		<Unit filename="scripts.cpp" />
+		<Unit filename="scripts.h" />
+		<Unit filename="shader.cpp" />
+		<Unit filename="shader.h" />
+		<Unit filename="simple1.frag" />
+		<Unit filename="simple1.vert" />
+		<Unit filename="text.frag" />
+		<Unit filename="text.vert" />
+		<Unit filename="time.cpp" />
+		<Unit filename="time.h" />
+		<Unit filename="tutorial4.frag" />
+		<Unit filename="tutorial4.geom" />
+		<Unit filename="tutorial4.vert" />
+		<Unit filename="vertex_normal.frag" />
+		<Unit filename="vertex_normal.geom" />
+		<Unit filename="vertex_normal.vert" />
+		<Unit filename="vertex_normal_color.frag" />
+		<Unit filename="vertex_normal_color.vert" />
+		<Unit filename="vertex_normal_uv.frag" />
+		<Unit filename="vertex_normal_uv.vert" />
+		<Unit filename="vertex_normal_uv_color.frag" />
+		<Unit filename="vertex_normal_uv_color.vert" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
