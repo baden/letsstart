@@ -451,25 +451,25 @@ def setSinglePath(filename):
 #			else:
 #				file_model.write(struct.pack("<I", il))
 #			vert_data.append('')
-			file_info.write('    Vertexes:\n')
+#			file_info.write('    Vertexes:\n')
 			vind=0
 			for v in verts:
-				file_info.write('       [%d]:' % vind)
+#				file_info.write('       [%d]:' % vind)
 				vind += 1
-				file_info.write(' v:(%.3f, %.3f, %.3f)' % (v[0][0], v[0][1], v[0][2]))
+#				file_info.write(' v:(%.3f, %.3f, %.3f)' % (v[0][0], v[0][1], v[0][2]))
 				vert_data[mi] += struct.pack('<3H', FloatToHalf(v[0][0]), FloatToHalf(v[0][1]), FloatToHalf(v[0][2]))	# vertex
-				file_info.write(' n:(%.3f, %.3f, %.3f)' % (v[1][0], v[1][1], v[1][2]))
+#				file_info.write(' n:(%.3f, %.3f, %.3f)' % (v[1][0], v[1][1], v[1][2]))
 				vert_data[mi] += struct.pack('<3H', FloatToHalf(v[1][0]), FloatToHalf(v[1][1]), FloatToHalf(v[1][2]))	# normals
 				if EXPORT_UV:
-					file_info.write(' v:(%.3f, %.3f)' % (v[2][0], v[2][1]))
+#					file_info.write(' v:(%.3f, %.3f)' % (v[2][0], v[2][1]))
 					vert_data[mi] += struct.pack('<2H', FloatToHalf(v[2][0]), FloatToHalf(v[2][1]))
 				if EXPORT_COLORS:
-					file_info.write(' c:(%d, %d, %d, %d)' % (v[3][0], v[3][1], v[3][2], 255))
+#					file_info.write(' c:(%d, %d, %d, %d)' % (v[3][0], v[3][1], v[3][2], 255))
 					vert_data[mi] += struct.pack('<4c', chr(int(v[3][0])), chr(int(v[3][1])), chr(int(v[3][2])), chr(255) ) 
-				file_info.write('\n')
+#				file_info.write('\n')
 
 			ri = 0
-			file_info.write('    Indexes:\n')
+#			file_info.write('    Indexes:\n')
 			iind = 0
 			for (i, f) in enumerate(mesh.faces):
 #				file.write('%d ' % len(f))
@@ -489,7 +489,7 @@ def setSinglePath(filename):
 #					file.write(struct.pack("<I", vdict[v.index][normal, uvcoord, color]))
 					ri += 1;
 #					index_data[mi] += struct.pack("<I", vdict[v.index][normal, uvcoord, color])
-					file_info.write('       [%d]: %d\n' % (iind, vdict[v.index][normal, uvcoord, color]))
+#					file_info.write('       [%d]: %d\n' % (iind, vdict[v.index][normal, uvcoord, color]))
 					iind += 1
 					if vl < 256:
 						index_data[mi] += struct.pack("<c", chr(vdict[v.index][normal, uvcoord, color]))

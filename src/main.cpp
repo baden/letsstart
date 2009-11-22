@@ -54,6 +54,8 @@ GLfloat cameramatrix[16] = IDENTITY_MATRIX4;
 GLfloat projectionmatrix[16]; /* Our projection matrix starts with all 0s */
 GLfloat modelmatrix[16]; /* Our model matrix  */
 
+int obj_palatka = -1;
+
 void DoPrepare()
 {
 
@@ -124,6 +126,7 @@ void DoPrepare()
 //    ObjectLoad("../blender/models/ManyMeshes.bdsm2.gz");
     ObjectLoad("../blender/models/Kaktus.bdsm2.gz");
     ObjectLoad("../blender/models/Palm.bdsm2.gz");
+    obj_palatka = ObjectLoad("../blender/models/Palatka.bdsm2.gz");
 
     ObjectStatistic();
 
@@ -264,7 +267,7 @@ void DoDraw(HDC hDC)
 //            glUniformMatrix4fv(shader_current->modelview_u, 1, GL_FALSE, commmatrix);
                 CUR_COLOR(0.0f, 1.0f, 0.0f);
                 //PlyDraw(&model02);
-                ObjectDraw(3+((ix+iy)%5), frame);
+                ObjectDraw(3+((ix+iy)%6), frame);
                 rotate_r(modelmatrix, -25.0*(ix+iy*2), Z_AXIS);
             }
             translate(modelmatrix, MAP_DX, 0.0, 0.0);
@@ -318,7 +321,7 @@ void DoDraw(HDC hDC)
 //    PlyDraw(&model01);
     translate(modelmatrix, 0, -1.5, 0);
     scale(modelmatrix, 0.4, 0.4, 0.4);
-    ObjectDraw(0, frame);
+    ObjectDraw(2, frame);
 
     translate(modelmatrix, 2.6f, 1.5, 0.0);
     scale(modelmatrix, 2.0f, 2.0f, 2.0f);
@@ -330,7 +333,7 @@ void DoDraw(HDC hDC)
     glColor3f(1.0, 0.0, 0.0);
     //glDisableVertexAttribArray(3);
 //    PlyDraw(&model03);
-    ObjectDraw(1, frame);
+    ObjectDraw(3, frame);
 
     translate(modelmatrix, -2.8f, -1.7f, 0.5);
     scale(modelmatrix, 0.1f, 0.1f, 0.1f);

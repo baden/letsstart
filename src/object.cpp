@@ -55,7 +55,7 @@ int ObjectLoad(const char *filename)
 
 	if((in = gzopen(filename, "rb")) == NULL) {
 		fprintf(stderr, "  Can't gzopen file\n");
-        return 0;
+        return -1;
 	}
     //fprintf(stderr, "  decompressing...\n");
 
@@ -64,7 +64,7 @@ int ObjectLoad(const char *filename)
     if(strncmp(header, BDM2_header, 4)){
         fprintf(stderr, "   Error model format, 'BDM2'-header is expected.\n");
         gzclose(in);
-        return 0;
+        return -1;
     }
 
     int meshes_count;
@@ -74,7 +74,7 @@ int ObjectLoad(const char *filename)
     if((meshes_count<=0) || (meshes_count >= MAX_MESHES)){
         fprintf(stderr, "   Error model. Meshes count is out of range.\n");
         gzclose(in);
-        return 0;
+        return -1;
     }
 
     tObjectMesh *meshes;
@@ -82,7 +82,7 @@ int ObjectLoad(const char *filename)
     if((meshes = (tObjectMesh *)malloc(sizeof(tObjectMesh) * meshes_count))==NULL){
         fprintf(stderr, "fail.\n");
         gzclose(in);
-        return 0;
+        return -1;
     } else fprintf(stderr, "ok.\n");
 
     for(int m = 0; m<meshes_count; m++){
@@ -142,7 +142,7 @@ int ObjectLoad(const char *filename)
         fprintf(stderr, "   Error model format, 'ANIM'-header is expected.\n");
         free(meshes);
         gzclose(in);
-        return 0;
+        return -1;
     }
 
     int frames_count;
@@ -153,7 +153,7 @@ int ObjectLoad(const char *filename)
         fprintf(stderr, "   Error model. Frames count is out of range.\n");
         free(meshes);
         gzclose(in);
-        return 0;
+        return -1;
     }
 
     tObjectFrame *frames;
@@ -162,7 +162,7 @@ int ObjectLoad(const char *filename)
         fprintf(stderr, "fail.\n");
         free(meshes);
         gzclose(in);
-        return 0;
+        return -1;
     } else fprintf(stderr, "ok.\n");
 
     memset(frames, 0, sizeof(tObjectFrame) * frames_count); // заполним значениями NULL все указатели
@@ -193,7 +193,7 @@ int ObjectLoad(const char *filename)
             free(frames);
             free(meshes);
             gzclose(in);
-            return 0;
+            return -1;
         }
 
         frame->meshes_in_frame = meshes_in_frame;
@@ -236,7 +236,7 @@ int ObjectLoad(const char *filename)
         free(frames);
         free(meshes);
         gzclose(in);
-        return 0;
+        return -1;
     }
 
     fprintf(stderr, "    Loading VBO data.\n");
@@ -356,7 +356,7 @@ int ObjectLoad(const char *filename)
 //    for(int ff=0; ff<frames_count; ff++) if(frames[ff].framedata) free(frames[ff].framedata);
 //    free(frames);
 //    free(meshes);
-    return 1;
+    return objectList.size()-1;
 }
 
 int ObjectStatistic()
@@ -561,6 +561,7 @@ int ObjectDraw(unsigned int id, int nframe)
     multiply4x4n(commmatrix, modelmatrix, cameramatrix);
 
     if(id >= objectList.size()) return 0;
+    if(id < 0) return 0;
 
     int maxframes = objectList.at(id).frames_count;
     if(nframe>=maxframes) nframe = nframe % maxframes;
