@@ -13,14 +13,14 @@
 	<File name="gldraw.h" open="1" top="0" tabpos="2">
 		<Cursor position="127" topLine="0" />
 	</File>
-	<File name="gltext.cpp" open="1" top="0" tabpos="8">
+	<File name="gltext.cpp" open="1" top="0" tabpos="7">
 		<Cursor position="93" topLine="0" />
 	</File>
 	<File name="gltext.h" open="0" top="0" tabpos="11">
 		<Cursor position="154" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="8768" topLine="267" />
+		<Cursor position="419" topLine="0" />
 	</File>
 	<File name="map.cpp" open="0" top="0" tabpos="9">
 		<Cursor position="20" topLine="0" />
@@ -28,8 +28,8 @@
 	<File name="map.h" open="0" top="0" tabpos="10">
 		<Cursor position="414" topLine="0" />
 	</File>
-	<File name="math.cpp" open="1" top="0" tabpos="7">
-		<Cursor position="698" topLine="9" />
+	<File name="math.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="894" topLine="20" />
 	</File>
 	<File name="math.h" open="0" top="0" tabpos="14">
 		<Cursor position="159" topLine="0" />
@@ -40,11 +40,11 @@
 	<File name="matrix.h" open="0" top="0" tabpos="7">
 		<Cursor position="1297" topLine="0" />
 	</File>
-	<File name="object.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="13552" topLine="332" />
+	<File name="object.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="28724" topLine="749" />
 	</File>
-	<File name="object.h" open="1" top="0" tabpos="6">
-		<Cursor position="1392" topLine="48" />
+	<File name="object.h" open="1" top="0" tabpos="5">
+		<Cursor position="1392" topLine="43" />
 	</File>
 	<File name="scripts.cpp" open="0" top="0" tabpos="14">
 		<Cursor position="1316" topLine="31" />
@@ -53,10 +53,25 @@
 		<Cursor position="61" topLine="0" />
 	</File>
 	<File name="shader.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="7544" topLine="169" />
+		<Cursor position="7209" topLine="161" />
 	</File>
-	<File name="shader.h" open="1" top="0" tabpos="4">
-		<Cursor position="1516" topLine="0" />
+	<File name="shader.h" open="1" top="0" tabpos="11">
+		<Cursor position="1502" topLine="16" />
+	</File>
+	<File name="shaders\vertex_normal.frag" open="0" top="0" tabpos="0">
+		<Cursor position="186" topLine="0" />
+	</File>
+	<File name="shaders\vertex_normal.vert" open="0" top="0" tabpos="0">
+		<Cursor position="1101" topLine="25" />
+	</File>
+	<File name="shaders\vertex_normal3.frag" open="1" top="0" tabpos="10">
+		<Cursor position="1552" topLine="4" />
+	</File>
+	<File name="shaders\vertex_normal3.geom" open="1" top="0" tabpos="8">
+		<Cursor position="1763" topLine="54" />
+	</File>
+	<File name="shaders\vertex_normal3.vert" open="1" top="0" tabpos="9">
+		<Cursor position="322" topLine="0" />
 	</File>
 	<File name="time.cpp" open="0" top="0" tabpos="8">
 		<Cursor position="67" topLine="0" />

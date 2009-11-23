@@ -44,6 +44,7 @@ void ShaderDoColor(float *color);
 #define SHADER_VERTEX_NORMAL_UV         1
 #define SHADER_VERTEX_NORMAL_UV_COLOR   2
 #define SHADER_VERTEX_NORMAL_COLOR      3
+#define SHADER_VERTEX_NORMAL_OUT        5
 #define SHADER_TEXT              4
 
 #endif

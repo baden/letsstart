@@ -7,6 +7,7 @@
 
 tShader *shader_current;
 
+tShader shader_vertexnormalout;
 tShader shader_vertexnormal;
 tShader shader_vertexnormaluv;
 tShader shader_vertexnormaluvcolor;
@@ -150,8 +151,9 @@ void doneShader(tShader *shader)
 
 void initShaders(void)
 {
-//    initShader(&shader_vertexnormal, "vertex_normal.vert", "vertex_normal.geom", "vertex_normal.frag");
+//   initShader(&shader_vertexnormal, "vertex_normal3.vert", "vertex_normal3.geom", "vertex_normal3.frag");
     initShader(&shader_vertexnormal, "vertex_normal.vert", NULL, "vertex_normal.frag");
+    initShader(&shader_vertexnormalout, "vertex_normal3.vert", "vertex_normal3.geom", "vertex_normal3.frag");
     initShader(&shader_vertexnormaluv, "vertex_normal_uv.vert", NULL, "vertex_normal_uv.frag");
     initShader(&shader_vertexnormaluvcolor, "vertex_normal_uv_color.vert", NULL, "vertex_normal_uv_color.frag");
     initShader(&shader_vertexnormalcolor, "vertex_normal_color.vert", NULL, "vertex_normal_color.frag");
@@ -162,6 +164,7 @@ void initShaders(void)
 void doneShaders(void)
 {
     glUseProgram(0);
+    doneShader(&shader_vertexnormalout);
     doneShader(&shader_vertexnormal);
     doneShader(&shader_vertexnormaluv);
     doneShader(&shader_vertexnormaluvcolor);
@@ -174,6 +177,7 @@ void ShaderSetCurent(int shader_program)
     tShader *new_shader_current;
     switch(shader_program){
         case SHADER_VERTEX_NORMAL: new_shader_current = &shader_vertexnormal; break;
+        case SHADER_VERTEX_NORMAL_OUT: new_shader_current = &shader_vertexnormalout; break;
         case SHADER_VERTEX_NORMAL_UV: new_shader_current = &shader_vertexnormaluv; break;
         case SHADER_VERTEX_NORMAL_UV_COLOR: new_shader_current = &shader_vertexnormaluvcolor; break;
         case SHADER_VERTEX_NORMAL_COLOR: new_shader_current = &shader_vertexnormalcolor; break;

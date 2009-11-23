@@ -71,8 +71,10 @@
 		<Unit filename="shaders\tutorial4.geom" />
 		<Unit filename="shaders\tutorial4.vert" />
 		<Unit filename="shaders\vertex_normal.frag" />
-		<Unit filename="shaders\vertex_normal.geom" />
 		<Unit filename="shaders\vertex_normal.vert" />
+		<Unit filename="shaders\vertex_normal3.frag" />
+		<Unit filename="shaders\vertex_normal3.geom" />
+		<Unit filename="shaders\vertex_normal3.vert" />
 		<Unit filename="shaders\vertex_normal_color.frag" />
 		<Unit filename="shaders\vertex_normal_color.vert" />
 		<Unit filename="shaders\vertex_normal_uv.frag" />

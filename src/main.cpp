@@ -113,7 +113,7 @@ void DoPrepare()
 */
     ObjectLoad("../blender/models/Zabor.bdsm2.gz");
     ObjectLoad("../blender/models/FlatFloor.bdsm2.gz");
-    ObjectLoad("../blender/models/Sintel.bdsm2.gz");
+//    ObjectLoad("../blender/models/Sintel.bdsm2.gz");
     ObjectLoad("../blender/models/Animation.bdsm2.gz");
 //    ObjectLoad("../blender/models/Collect1.bdsm2.gz");
     ObjectLoad("../blender/models/Medusa.bdsm2.gz");
@@ -127,8 +127,11 @@ void DoPrepare()
     ObjectLoad("../blender/models/Kaktus.bdsm2.gz");
     ObjectLoad("../blender/models/Palm.bdsm2.gz");
     obj_palatka = ObjectLoad("../blender/models/Palatka.bdsm2.gz");
+    ObjectLoad("../blender/models/Quad.bdsm2.gz");
 
     ObjectStatistic();
+
+//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 //    glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
 //    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -136,27 +139,29 @@ void DoPrepare()
     glEnable(GL_DEPTH_TEST);
 //    glDisable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-	glShadeModel(GL_SMOOTH);                             // Включается плавное затенение
-	glEnable(GL_DITHER);
+//	glShadeModel(GL_SMOOTH);                             // Включается плавное затенение
+//	glEnable(GL_DITHER);
+//	glEnable(GL_POINT_SMOOTH);
 	glEnable(GL_LINE_SMOOTH);                            // Включается сглаживание линий
-	glEnable(GL_POINT_SMOOTH);
-	glEnable(GL_POLYGON_SMOOTH);
-	glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+//	glEnable(GL_POLYGON_SMOOTH);
+//	glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);              // Выбирается самый качественный
-	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);              // Выбирается самый качественный
+//	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);              // Выбирается самый качественный
 	glEnable(GL_BLEND);                                  // Включается смешение цветов, необходимое
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);   // для работы сглаживания и задается
 
     glFrontFace(GL_CW);
     glCullFace(GL_FRONT);
     glEnable(GL_CULL_FACE);
-//	glPolygonMode(GL_BACK,GL_LINE);
-//	glPolygonMode(GL_BACK, GL_FILL);
-//	glCullFace(GL_FRONT);
-	glLineWidth(4);
-	//glEnable(GL_LINE_WIDTH);
-	glPointSize(4);
+	glEnable(GL_LINE_WIDTH);
+	//glEnable(GL_LINE_WIDTH_GRANULARITY);
+//	glPointSize(8);
+//	glEnable(GL_POINT_SPRITE);
+	//glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+	//glEnable(GL_VERTEX_PROGRAM_TWO_SIDE);
 
+	glLineWidth(6.0f);
+//    glGet(GL_LINE_WIDTH);
 }
 
 void DoDone()
@@ -255,6 +260,8 @@ void DoDraw(HDC hDC)
 //    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     memcpy(modelmatrix, identitymatrix, sizeof(GLfloat) * 16);
+
+#if 1
     for(int iy=0; iy<16; iy++){
         for(int ix=0; ix<24; ix++){
             CUR_COLOR(0.5f, 0.5f, 0.0f);
@@ -275,7 +282,7 @@ void DoDraw(HDC hDC)
         }
         translate(modelmatrix, -MAP_DX*24.0, MAP_DY, 0.0);
     }
-
+#endif
     CUR_COLOR(0.5f, 0.5f, 0.5f);
     memcpy(modelmatrix, identitymatrix, sizeof(GLfloat) * 16);
     rotate_r(modelmatrix, 90, Z_AXIS);

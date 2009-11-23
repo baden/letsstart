@@ -23,6 +23,8 @@
 
 #define USE_MESHSORT        // Применить сортировку мешей по типу.
 
+#define USE_ADJ     // Применить преобразование моделей для TRIANGLES_ADJACENCY
+
 std::vector <tObject> objectList;
 
 #ifdef USE_MESHSORT
@@ -46,6 +48,238 @@ const char ANIM_header[4] = {'A', 'N', 'I', 'M'};
 const char VBOD_header[4] = {'V', 'B', 'O', 'D'};
 //const char VERT_header[4] = {'V', 'E', 'R', 'T'};
 //const char FACE_header[4] = {'F', 'A', 'C', 'E'};
+
+typedef struct{
+    float x;
+    float y;
+    float z;
+} vec3;
+
+#define TRESHOLD 0.001f
+
+//#define VO if(attribs & MESH_TEXTURE) ((unsigned char*)abuf)
+//#define VI if(attribs & MESH_TEXTURE) ((unsigned char*)ibuf)
+
+int FindAdj(tObjectMesh *mesh, void *abuf, void *vbuf, void *ibuf, int i, int i0, int i1, int i2)
+{
+    int attribs = mesh->attribs;
+
+    fprintf(stderr, "[F%d:%d=", i0, i1);
+//    int i2 = -1;
+    for(int k=0; k<mesh->index_count; k+=3) if(k!=i){
+        int v0;
+        int v1;
+        int v2;
+        if(attribs & MESH_VI){
+            v0 = ((unsigned int *)ibuf)[k+0];
+            v1 = ((unsigned int *)ibuf)[k+1];
+            v2 = ((unsigned int *)ibuf)[k+2];
+        } else if(attribs & MESH_VS){
+            v0 = ((unsigned short *)ibuf)[k+0];
+            v1 = ((unsigned short *)ibuf)[k+1];
+            v2 = ((unsigned short *)ibuf)[k+2];
+        } else {
+            v0 = ((unsigned char *)ibuf)[k+0];
+            v1 = ((unsigned char *)ibuf)[k+1];
+            v2 = ((unsigned char *)ibuf)[k+2];
+        }
+
+        if(v0 == i0){
+            if(v1 == i1){
+                i2 = v2;                break;
+            } else if(v2 == i1){
+                i2 = v1;                break;
+            }
+        }else if(v1 == i0){
+            if(v0 == i1){
+                i2 = v2;                break;
+            } else if(v2 == i1){
+                i2 = v0;                break;
+            }
+        }else if(v2 == i0){
+            if(v0 == i1){
+                i2 = v1;                break;
+            } else if(v1 == i1){
+                i2 = v0;                break;
+            }
+        }
+    }
+    fprintf(stderr, "%d]", i2);
+//    if(i2==-1) i2 = _oi2;
+    return i2;
+}
+
+void MeshAdj(tObjectMesh *mesh, void *abuf, void *vbuf, void *ibuf, int idatasize)
+{
+    fprintf(stderr, "       Triangles to triangles_adjacency translation.\n");
+    fflush(stderr);
+
+/*
+        Необходимо для треугольников
+               1
+              ^\
+              | \
+              |  \
+            e0|   \ e1
+              |    \
+              |     \
+              |      v
+              0<------2
+                  e2
+
+        Получить следующее:
+
+       1 - - - 2- - ->3
+              ^\
+        \     | \     |
+              |  \
+          \ e0|   \ e1|
+              |    \
+            \ |     \ |
+              |      v
+              0<------4
+                  e2
+                \     |
+
+                  \   |
+
+                    \ |
+
+                      5
+*/
+    int attribs = mesh->attribs;
+
+//    unsigned char *bbuf = (unsigned char *)abuf;
+//    unsigned short *sbuf = (unsigned short *)abuf;
+//    unsigned int *ibuf = (unsigned int *)abuf;
+
+    int strip = 6; // x,y,z,nx,ny,nz
+    if(attribs & MESH_TEXTURE) strip+=2;  // +u,v
+    if(attribs & MESH_COLOR) strip+=2;    // +rgba == 2halffloat
+
+    fprintf(stderr, "         {");
+    if(attribs & MESH_VI) fprintf(stderr, "I");
+    else if(attribs & MESH_VS) fprintf(stderr, "S");
+    else fprintf(stderr, "B");
+    fprintf(stderr, ":%d}\n", idatasize*2);
+
+    fflush(stderr);
+
+    for(int i=0, j=0; i<mesh->index_count; i+=3, j+=6){
+        int i0;
+        int i1;
+        int i2;
+        int o0, o1, o2, o3, o4, o5;
+        if(attribs & MESH_VI){
+            i0 = ((unsigned int *)ibuf)[i+0];
+            i1 = ((unsigned int *)ibuf)[i+1];
+            i2 = ((unsigned int *)ibuf)[i+2];
+        } else if(attribs & MESH_VS){
+            i0 = ((unsigned short *)ibuf)[i+0];
+            i1 = ((unsigned short *)ibuf)[i+1];
+            i2 = ((unsigned short *)ibuf)[i+2];
+        } else {
+            i0 = ((unsigned char *)ibuf)[i+0];
+            i1 = ((unsigned char *)ibuf)[i+1];
+            i2 = ((unsigned char *)ibuf)[i+2];
+        }
+        fprintf(stderr, "      tri: (%d, %d, %d) -> ", i0, i1, i2);
+
+        // Оригинальный треугольник
+        o0 = i0;
+        o2 = i1;
+        o4 = i2;
+
+        // Соседние треугольники
+        o1 = FindAdj(mesh, abuf, vbuf, ibuf, i, i0, i1, i2);
+//        if(iA == -1) iA = i2;
+        o3 = FindAdj(mesh, abuf, vbuf, ibuf, i, i1, i2, i0);
+        o5 = FindAdj(mesh, abuf, vbuf, ibuf, i, i2, i0, i1);
+        fprintf(stderr, "(%d, %d, %d, %d, %d, %d)\n", o0, o1, o2, o3, o4, o5);
+
+        if(attribs & MESH_VI){
+            ((unsigned int *)abuf)[j+0] = o0;
+            ((unsigned int *)abuf)[j+1] = o1;
+            ((unsigned int *)abuf)[j+2] = o2;
+            ((unsigned int *)abuf)[j+3] = o3;
+            ((unsigned int *)abuf)[j+4] = o4;
+            ((unsigned int *)abuf)[j+5] = o5;
+        } else if(attribs & MESH_VS){
+            ((unsigned short *)abuf)[j+0] = o0;
+            ((unsigned short *)abuf)[j+1] = o1;
+            ((unsigned short *)abuf)[j+2] = o2;
+            ((unsigned short *)abuf)[j+3] = o3;
+            ((unsigned short *)abuf)[j+4] = o4;
+            ((unsigned short *)abuf)[j+5] = o5;
+        } else{
+            ((unsigned char *)abuf)[j+0] = o0;
+            ((unsigned char *)abuf)[j+1] = o1;
+            ((unsigned char *)abuf)[j+2] = o2;
+            ((unsigned char *)abuf)[j+3] = o3;
+            ((unsigned char *)abuf)[j+4] = o4;
+            ((unsigned char *)abuf)[j+5] = o5;
+        }
+    }
+/*
+
+            // Ищем треугольник для грани 0-1
+            fprintf(stderr, "      tri: (%d, %d, %d) ", bbuf[j+0], bbuf[j+2], bbuf[j+4]);
+
+            vec3 v0 = {HALFToFloat(((HALF*)vbuf)[bbuf[j+0]*strip+0]), HALFToFloat(((HALF*)vbuf)[bbuf[j+0]*strip+1]), HALFToFloat(((HALF*)vbuf)[bbuf[j+0]*strip+2])};
+            fprintf(stderr, " (%.1f,%.1f,%.1f) ", v0.x, v0.y, v0.z);
+            vec3 v1 = {HALFToFloat(((HALF*)vbuf)[bbuf[j+2]*strip+0]), HALFToFloat(((HALF*)vbuf)[bbuf[j+2]*strip+1]), HALFToFloat(((HALF*)vbuf)[bbuf[j+2]*strip+2])};
+            fprintf(stderr, " (%.1f,%.1f,%.1f) ", v1.x, v1.y, v1.z);
+            vec3 v2 = {HALFToFloat(((HALF*)vbuf)[bbuf[j+4]*strip+0]), HALFToFloat(((HALF*)vbuf)[bbuf[j+4]*strip+1]), HALFToFloat(((HALF*)vbuf)[bbuf[j+4]*strip+2])};
+            fprintf(stderr, " (%.1f,%.1f,%.1f) ", v2.x, v2.y, v2.z);
+
+            int fi = -1;
+            int i1 = ((unsigned char *)buf)[i+0];
+            int i2 = ((unsigned char *)buf)[i+1];
+            for(int k=0; k<idatasize; k+=3) if(k!=i){
+                if(((unsigned char *)buf)[k+0] == i1){          // v0 = i1
+                    if(((unsigned char *)buf)[k+1] == i2){          // v1 = i2
+                        fi = ((unsigned char *)buf)[k+2];               // i3 = v2
+                        fprintf(stderr, "[%d]", fi);
+                        break;
+                    } else if(((unsigned char *)buf)[k+2] == i2){   // v2 = i2
+                        fi = ((unsigned char *)buf)[k+1];               // i3 = v1
+                        fprintf(stderr, "[%d]", fi);
+                        break;
+                    }
+                }else if(((unsigned char *)buf)[k+1] == i1){    // v1 = i1
+                    if(((unsigned char *)buf)[k+0] == i2){          // v0 = i2
+                        fi = ((unsigned char *)buf)[k+2];               // i3 = v2
+                        fprintf(stderr, "[%d]", fi);
+                        break;
+                    } else if(((unsigned char *)buf)[k+2] == i2){   // v2 = i2
+                        fi = ((unsigned char *)buf)[k+0];               // i3 = v0
+                        fprintf(stderr, "[%d]", fi);
+                        break;
+                    }
+                }else if(((unsigned char *)buf)[k+2] == i1){    // v2 = i1
+                    if(((unsigned char *)buf)[k+0] == i2){          // v0 = i2
+                        fi = ((unsigned char *)buf)[k+1];               // i3 = v1
+                        fprintf(stderr, "[%d]", fi);
+                        break;
+                    } else if(((unsigned char *)buf)[k+1] == i2){   // v1 = i2
+                        fi = ((unsigned char *)buf)[k+0];               // i3 = v0
+                        fprintf(stderr, "[%d]", fi);
+                        break;
+                    }
+                }
+            }
+            if(fi == -1){   // Индекс не найден
+            }
+            //fprintf(stderr, "\n");
+            bbuf[j+1] = ((unsigned char *)buf)[i+2];    // Тот-же треугольник, но задом наперед
+            bbuf[j+3] = ((unsigned char *)buf)[i+0];    // Тот-же треугольник, но задом наперед
+            bbuf[j+5] = ((unsigned char *)buf)[i+1];    // Тот-же треугольник, но задом наперед
+            fprintf(stderr, "\n");
+        }
+    }
+*/
+    mesh->index_count *= 2;
+}
 
 int ObjectLoad(const char *filename)
 {
@@ -262,19 +496,19 @@ int ObjectLoad(const char *filename)
 
         fprintf(stderr, "       Index data size = %d bytes.\n", idatasize);
         //fprintf(stderr, "       Allocating temp buffer for vbo data.");
-        void *buf;
-        if((buf = malloc(vdatasize))==NULL){
+        void *vbuf;
+        if((vbuf = malloc(vdatasize))==NULL){
             break;
         }
-        gzread(in, buf, vdatasize);
-        glBufferData(GL_ARRAY_BUFFER, vdatasize, buf, GL_STATIC_DRAW);
+        gzread(in, vbuf, vdatasize);
+        glBufferData(GL_ARRAY_BUFFER, vdatasize, vbuf, GL_STATIC_DRAW);
 
-        glVertexAttribPointer((GLuint)0, 3, GL_HALF_FLOAT, GL_FALSE, stride, (GLvoid*)0);    // vertex coordinates
+        glVertexAttribPointer((GLuint)0, 3, GL_HALF_FLOAT, GL_TRUE, stride, (GLvoid*)0);    // vertex coordinates
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer((GLuint)1, 3, GL_HALF_FLOAT, GL_FALSE, stride, (GLvoid*)(3*2));  // normals
+        glVertexAttribPointer((GLuint)1, 3, GL_HALF_FLOAT, GL_TRUE, stride, (GLvoid*)(3*2));  // normals
         glEnableVertexAttribArray(1);
         if(meshes[m].attribs & MESH_TEXTURE){
-            glVertexAttribPointer((GLuint)2, 2, GL_HALF_FLOAT, GL_FALSE, stride, (GLvoid*)(3*2+3*2));  // texture coordinares
+            glVertexAttribPointer((GLuint)2, 2, GL_HALF_FLOAT, GL_TRUE, stride, (GLvoid*)(3*2+3*2));  // texture coordinares
             glEnableVertexAttribArray(2);
             if(meshes[m].attribs & MESH_COLOR){
                 glVertexAttribPointer((GLuint)3, 4, GL_UNSIGNED_BYTE, GL_TRUE, stride, (GLvoid*)(3*2+3*2+2*2));  // color
@@ -286,7 +520,7 @@ int ObjectLoad(const char *filename)
         }
 
 #if 0
-        char *blog = (char *)buf;
+        char *blog = (char *)vbuf;
         for(int v=0; v<meshes[m].vertex_count; v++){
             fprintf(stderr, "       v[%d]=", v);
             //float f1, f2;
@@ -312,14 +546,22 @@ int ObjectLoad(const char *filename)
             fprintf(stderr, "\n");
         }
 #endif
-        free(buf);
-        if((buf = malloc(idatasize))==NULL){
-            break;
-        }
-        gzread(in, buf, idatasize);
+        void *ibuf;
+        if((ibuf = malloc(idatasize))==NULL) break;
+
+        gzread(in, ibuf, idatasize);
+#ifdef USE_ADJ
+        void *abuf;
+        if((abuf = malloc(idatasize*2))==NULL) break;
+        MeshAdj(&(meshes[m]), abuf, vbuf, ibuf, idatasize);
+        void *tbuf = ibuf;
+        ibuf = abuf;
+        idatasize*=2;
+        free(tbuf);
+#endif
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshes[m].vbo[1]);   /* Bind our third VBO as being the active buffer and storing vertex array indicies */
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, idatasize, buf, GL_STATIC_DRAW); /* Copy the index data to our buffer */
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, idatasize, ibuf, GL_STATIC_DRAW); /* Copy the index data to our buffer */
 
 #if 0
         blog = (char *)buf;
@@ -335,7 +577,8 @@ int ObjectLoad(const char *filename)
         }
         fprintf(stderr, "\n");
 #endif
-        free(buf);
+        free(ibuf);
+        free(vbuf);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -344,7 +587,7 @@ int ObjectLoad(const char *filename)
 
 	if (gzclose(in) != Z_OK) fprintf(stderr, "  failed gzclose");
 
-    fprintf(stderr, "    Creatimg object id=%d.\n", objectList.size());
+    fprintf(stderr, "    Creating object id=%d.\n", objectList.size());
     //
     tObject tempObject;
     tempObject.meshes_count = meshes_count;
@@ -480,6 +723,7 @@ int ObjectDrawArrays()
         }
 */
     int oc = drawVertexNormalMeshes.size();
+#if 1
     for(int i = 0; i<oc; i++){
         tObjectMesh *mesh = drawVertexNormalMeshes[i].mesh;// frame->framedata[m].mesh;
 
@@ -505,13 +749,66 @@ int ObjectDrawArrays()
         else if (mesh->vertex_count<65536) index_type = GL_UNSIGNED_SHORT;
         else index_type = GL_UNSIGNED_INT;
 
+#ifdef USE_ADJ
+        glDrawElements(GL_TRIANGLES_ADJACENCY, indexcount, index_type, (GLvoid*)0);
+#else
         glDrawElements(GL_TRIANGLES, indexcount, index_type, (GLvoid*)0);
+#endif
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
     }
+#endif
+
+#if 1
+//    glDisable(GL_DEPTH_TEST);
+//	glDisable(GL_FRAGMENT_PROGRAM_NV);
+//	glDisable(GL_VERTEX_PROGRAM_ARB);
+// Outlines
+    glDepthFunc(GL_LEQUAL);
+    for(int i = 0; i<oc; i++){
+        tObjectMesh *mesh = drawVertexNormalMeshes[i].mesh;// frame->framedata[m].mesh;
+
+//        GLfloat commmatrix[16];
+//        multiply4x4n(commmatrix, drawVertexNormalMeshes[i].modelmatrix, mesh.);
+        ShaderDo(SHADER_VERTEX_NORMAL_OUT, projectionmatrix, drawVertexNormalMeshes[i].modelmatrix, drawVertexNormalMeshes[i].color);
+//        ShaderDo(SHADER_VERTEX_NORMAL, projectionmatrix, , drawVertexNormalMeshes[i].color);
+
+        glBindVertexArray(mesh->vao);
+        glBindBuffer(GL_ARRAY_BUFFER, mesh->vbo[0]);
+
+        int stride = (3*2+3*2) + 0;
+        glVertexAttribPointer((GLuint)0, 3, GL_HALF_FLOAT, GL_TRUE, stride, (GLvoid*)0);    // vertex coordinates
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer((GLuint)1, 3, GL_HALF_FLOAT, GL_TRUE, stride, (GLvoid*)(3*2));  // normals
+        glEnableVertexAttribArray(1);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->vbo[1]);
+        int indexcount = mesh->index_count;
+        GLenum index_type = GL_UNSIGNED_BYTE;
+
+        if (mesh->vertex_count<256) index_type = GL_UNSIGNED_BYTE;
+        else if (mesh->vertex_count<65536) index_type = GL_UNSIGNED_SHORT;
+        else index_type = GL_UNSIGNED_INT;
+
+#ifdef USE_ADJ
+        glDrawElements(GL_TRIANGLES_ADJACENCY, indexcount, index_type, (GLvoid*)0);
+#else
+        glDrawElements(GL_TRIANGLES, indexcount, index_type, (GLvoid*)0);
+#endif
+
+
+        glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(1);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindVertexArray(0);
+    }
+//        glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+#endif
 
     oc = drawVertexNormalColorMeshes.size();
     for(int i = 0; i<oc; i++){
@@ -539,7 +836,12 @@ int ObjectDrawArrays()
         else if (mesh->vertex_count<65536) index_type = GL_UNSIGNED_SHORT;
         else index_type = GL_UNSIGNED_INT;
 
+#ifdef USE_ADJ
+        glDrawElements(GL_TRIANGLES_ADJACENCY, indexcount, index_type, (GLvoid*)0);
+#else
         glDrawElements(GL_TRIANGLES, indexcount, index_type, (GLvoid*)0);
+#endif
+//        glDrawElements(GL_TRIANGLES, indexcount, index_type, (GLvoid*)0);
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
         glDisableVertexAttribArray(3);
