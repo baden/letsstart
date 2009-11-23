@@ -65,6 +65,8 @@ void main()
 //    }
     float f;
     vec4 eye = vec4( 0, 0, 0, -1 );
+    vec4 offset = vec4(0.0, 0.0, -0.0001, 0.0);
+//    vec4 offset = vec4(0.0, 0.0, 0.0, 0.0);
 
     f = facing3d(gl_in[0].gl_Position.xyz, gl_in[2].gl_Position.xyz, gl_in[4].gl_Position.xyz, eye);
 
@@ -75,27 +77,27 @@ void main()
     // Edge 1
     f = facing3d(gl_in[0].gl_Position.xyz, gl_in[1].gl_Position.xyz, gl_in[2].gl_Position.xyz, eye);
     if(f>=0){
-        gl_Position = gl_in[0].gl_Position;
+        gl_Position = gl_in[0].gl_Position + offset;
         EmitVertex();
-        gl_Position = gl_in[2].gl_Position;
+        gl_Position = gl_in[2].gl_Position + offset;
         EmitVertex();
         EndPrimitive();
     }
     // Edge 2
     f = facing3d(gl_in[2].gl_Position.xyz, gl_in[3].gl_Position.xyz, gl_in[4].gl_Position.xyz, eye);
     if(f>=0){
-        gl_Position = gl_in[2].gl_Position;
+        gl_Position = gl_in[2].gl_Position + offset;
         EmitVertex();
-        gl_Position = gl_in[4].gl_Position;
+        gl_Position = gl_in[4].gl_Position + offset;
         EmitVertex();
         EndPrimitive();
     }
     // Edge 3
     f = facing3d(gl_in[4].gl_Position.xyz, gl_in[5].gl_Position.xyz, gl_in[0].gl_Position.xyz, eye);
     if(f>=0){
-        gl_Position = gl_in[4].gl_Position;
+        gl_Position = gl_in[4].gl_Position + offset;
         EmitVertex();
-        gl_Position = gl_in[0].gl_Position;
+        gl_Position = gl_in[0].gl_Position + offset;
         EmitVertex();
         EndPrimitive();
     }
@@ -107,36 +109,6 @@ void main()
         return;
     }
 */
-/*
-    if(false){
-// Edge 1
-//    if(facing(gl_in[0].gl_Position.xy, gl_in[1].gl_Position.xy, gl_in[2].gl_Position.xy) < 0){
-        if(true){
-            gl_Position = gl_in[0].gl_Position;
-            EmitVertex();
-            gl_Position = gl_in[2].gl_Position;
-            EmitVertex();
-            EndPrimitive();
-        }
-// Edge 2
-//    if(facing(gl_in[2].gl_Position.xy, gl_in[3].gl_Position.xy, gl_in[4].gl_Position.xy) < 0){
-        if(true){
-            gl_Position = gl_in[2].gl_Position;
-            EmitVertex();
-            gl_Position = gl_in[4].gl_Position;
-            EmitVertex();
-            EndPrimitive();
-        }
-// Edge 3
-//    if(facing(gl_in[4].gl_Position.xy, gl_in[5].gl_Position.xy, gl_in[0].gl_Position.xy) < 0){
-    if(true){
-        gl_Position = gl_in[4].gl_Position;
-        EmitVertex();
-        gl_Position = gl_in[0].gl_Position;
-        EmitVertex();
-        EndPrimitive();
-        }
-    }
-*/
+
 }
 
