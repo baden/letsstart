@@ -129,6 +129,7 @@ void DoPrepare()
     ObjectLoad("../blender/models/Kaktus.bdsm2.gz");
     ObjectLoad("../blender/models/Palm.bdsm2.gz");
     obj_palatka = ObjectLoad("../blender/models/Palatka.bdsm2.gz");
+    ObjectLoad("../blender/models/Vetrjak.bdsm2.gz");
     ObjectLoad("../blender/models/Quad.bdsm2.gz");
 
 //    ObjectStatistic();
