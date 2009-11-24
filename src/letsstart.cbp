@@ -45,6 +45,8 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="extensions.h" />
+		<Unit filename="framebuf.cpp" />
+		<Unit filename="framebuf.h" />
 		<Unit filename="gldraw.cpp" />
 		<Unit filename="gldraw.h" />
 		<Unit filename="gltext.cpp" />
@@ -81,6 +83,8 @@
 		<Unit filename="shaders\vertex_normal_uv.vert" />
 		<Unit filename="shaders\vertex_normal_uv_color.frag" />
 		<Unit filename="shaders\vertex_normal_uv_color.vert" />
+		<Unit filename="statistic.cpp" />
+		<Unit filename="statistic.h" />
 		<Unit filename="time.cpp" />
 		<Unit filename="time.h" />
 		<Extensions>

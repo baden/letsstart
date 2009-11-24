@@ -23,6 +23,8 @@
 //#define MULTISAMPLE 2
 
 #include "math.h"
+#include "framebuf.h"
+#include "statistic.h"
 
 HWND hWnd = 0;               /* This is the handle for our window */
 HDC hDC = 0;
@@ -129,7 +131,7 @@ void DoPrepare()
     obj_palatka = ObjectLoad("../blender/models/Palatka.bdsm2.gz");
     ObjectLoad("../blender/models/Quad.bdsm2.gz");
 
-    ObjectStatistic();
+//    ObjectStatistic();
 
 //	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -162,10 +164,13 @@ void DoPrepare()
 
 	glLineWidth(6.0f);
 //    glGet(GL_LINE_WIDTH);
+fb_lazzy = 0;
+    FrameBufInit(1024, 768);
 }
 
 void DoDone()
 {
+    FrameBufDone();
     ObjectUnloadAll();
     textDone();
 //    PlyDone(&flatfloor);
@@ -204,6 +209,8 @@ void DoDraw(HDC hDC)
 
     pr1 = my_time();
     const GLfloat identitymatrix[16] = IDENTITY_MATRIX4;
+
+    StatisticInit();
 
     glClearColor( 0.3f, 0.2f, 0.1f, 1.f );
 //    glClear(GL_STENCIL_BUFFER_BIT);
@@ -360,7 +367,6 @@ void DoDraw(HDC hDC)
 
 #endif
 
-    ObjectDrawArrays();
 #if 0
     glFrontFace(GL_CW);
     glCullFace(GL_BACK);
@@ -374,6 +380,15 @@ void DoDraw(HDC hDC)
     glEnable(GL_CULL_FACE);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 #endif
+
+
+//    memcpy(modelmatrix, identitymatrix, sizeof(GLfloat) * 16);
+#if 1
+    ObjectDrawArrays();
+#else
+    FrameBufDraw();
+#endif
+
 #if 1
     memcpy(modelmatrix, identitymatrix, sizeof(GLfloat) * 16);
 //    multiply4x4n(commmatrix, modelmatrix, cameramatrix);
@@ -383,6 +398,9 @@ void DoDraw(HDC hDC)
 
     sprintf(draw_text, "PROFILE   DRAWTIME:%06d   IDLETIME:%06d   FPS:%9.1f", (int)pr2, (int)pr3, fps);
     drawText(-0.99, 0.90, 0);
+
+    sprintf(draw_text, "STATISTIC  MESHES:%d  TRIANGLES:%d ", StatisticGet(0), StatisticGet(1));
+    drawText(-0.99, 0.85, 0);
 
 //        sprintf(draw_text, "PROFILE   DRAWTIME:%06d   IDLETIME:%06d   FPS:%9.1f  DUMMY STUPID TEXT DUMMY STUPID TEXT", (int)pr2, (int)pr3, fps);
 //    for(float ty=0.8; ty>-0.8; ty-=0.02)
@@ -425,6 +443,8 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             if((w > 0) && (h > 0)){
                 w1 = h*4/3;
                 glViewport((w-w1)/2, 0, w1, h);
+                FrameBufDone();
+                FrameBufInit(w1, h);
             }
             break;
 

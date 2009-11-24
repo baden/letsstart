@@ -8,7 +8,7 @@
 
 #include <GL3/gl3.h>
 //#include <GL/glu.h>
-//#include "GL/glext.h"
+#include "GL/glext.h"
 //#include "GL/wglext.h"
 
 //#include "logger.h"
@@ -51,6 +51,17 @@ extern PFNGLBINDATTRIBLOCATIONPROC	glBindAttribLocation;
 //extern PFNGLDRAWARRAYSPROC	glDrawArrays;
 extern PFNGLDELETEBUFFERSPROC	glDeleteBuffers;
 extern PFNGLDELETEVERTEXARRAYSPROC	glDeleteVertexArrays;
+
+extern PFNGLCHECKFRAMEBUFFERSTATUSPROC glCheckFramebufferStatus;
+extern PFNGLGENFRAMEBUFFERSPROC  glGenFramebuffers;
+extern PFNGLDELETEFRAMEBUFFERSPROC  glDeleteFramebuffers;
+extern PFNGLGENRENDERBUFFERSPROC  glGenRenderbuffers;
+extern PFNGLDELETERENDERBUFFERSPROC glDeleteRenderbuffers;
+extern PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer;
+extern PFNGLBINDRENDERBUFFERPROC glBindRenderbuffer;
+extern PFNGLFRAMEBUFFERTEXTURE2DPROC glFramebufferTexture2D;
+extern PFNGLRENDERBUFFERSTORAGEPROC glRenderbufferStorage;
+extern PFNGLFRAMEBUFFERRENDERBUFFERPROC glFramebufferRenderbuffer;
 
 
 

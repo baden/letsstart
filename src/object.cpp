@@ -20,6 +20,7 @@
 #include "matrix.h"
 #include "shader.h"
 #include "math.h"
+#include "statistic.h"
 
 #define USE_MESHSORT        // Применить сортировку мешей по типу.
 
@@ -64,7 +65,7 @@ int FindAdj(tObjectMesh *mesh, void *abuf, void *vbuf, void *ibuf, int i, int i0
 {
     int attribs = mesh->attribs;
 
-    fprintf(stderr, "[F%d:%d=", i0, i1);
+//    fprintf(stderr, "[F%d:%d=", i0, i1);
 //    int i2 = -1;
     for(int k=0; k<mesh->index_count; k+=3) if(k!=i){
         int v0;
@@ -104,7 +105,7 @@ int FindAdj(tObjectMesh *mesh, void *abuf, void *vbuf, void *ibuf, int i, int i0
             }
         }
     }
-    fprintf(stderr, "%d]", i2);
+//    fprintf(stderr, "%d]", i2);
 //    if(i2==-1) i2 = _oi2;
     return i2;
 }
@@ -112,7 +113,7 @@ int FindAdj(tObjectMesh *mesh, void *abuf, void *vbuf, void *ibuf, int i, int i0
 void MeshAdj(tObjectMesh *mesh, void *abuf, void *vbuf, void *ibuf, int idatasize)
 {
     fprintf(stderr, "       Triangles to triangles_adjacency translation.\n");
-    fflush(stderr);
+//    fflush(stderr);
 
 /*
         Необходимо для треугольников
@@ -157,13 +158,12 @@ void MeshAdj(tObjectMesh *mesh, void *abuf, void *vbuf, void *ibuf, int idatasiz
     if(attribs & MESH_TEXTURE) strip+=2;  // +u,v
     if(attribs & MESH_COLOR) strip+=2;    // +rgba == 2halffloat
 
-    fprintf(stderr, "         {");
-    if(attribs & MESH_VI) fprintf(stderr, "I");
-    else if(attribs & MESH_VS) fprintf(stderr, "S");
-    else fprintf(stderr, "B");
-    fprintf(stderr, ":%d}\n", idatasize*2);
-
-    fflush(stderr);
+//    fprintf(stderr, "         {");
+//    if(attribs & MESH_VI) fprintf(stderr, "I");
+//    else if(attribs & MESH_VS) fprintf(stderr, "S");
+//    else fprintf(stderr, "B");
+//    fprintf(stderr, ":%d}\n", idatasize*2);
+//    fflush(stderr);
 
     for(int i=0, j=0; i<mesh->index_count; i+=3, j+=6){
         int i0;
@@ -183,7 +183,7 @@ void MeshAdj(tObjectMesh *mesh, void *abuf, void *vbuf, void *ibuf, int idatasiz
             i1 = ((unsigned char *)ibuf)[i+1];
             i2 = ((unsigned char *)ibuf)[i+2];
         }
-        fprintf(stderr, "      tri: (%d, %d, %d) -> ", i0, i1, i2);
+//        fprintf(stderr, "      tri: (%d, %d, %d) -> ", i0, i1, i2);
 
         // Оригинальный треугольник
         o0 = i0;
@@ -195,7 +195,7 @@ void MeshAdj(tObjectMesh *mesh, void *abuf, void *vbuf, void *ibuf, int idatasiz
 //        if(iA == -1) iA = i2;
         o3 = FindAdj(mesh, abuf, vbuf, ibuf, i, i1, i2, i0);
         o5 = FindAdj(mesh, abuf, vbuf, ibuf, i, i2, i0, i1);
-        fprintf(stderr, "(%d, %d, %d, %d, %d, %d)\n", o0, o1, o2, o3, o4, o5);
+//        fprintf(stderr, "(%d, %d, %d, %d, %d, %d)\n", o0, o1, o2, o3, o4, o5);
 
         if(attribs & MESH_VI){
             ((unsigned int *)abuf)[j+0] = o0;
@@ -325,48 +325,48 @@ int ObjectLoad(const char *filename)
         int indexes;
         tObjectMesh *mesh = &meshes[m];
 
-        fprintf(stderr, "   [%d]:", m);
+//        fprintf(stderr, "   [%d]:", m);
         gzread(in, &attribute, 1 );
         mesh->attribs = attribute;
-        if(attribute & MESH_QUAD)
-            fprintf(stderr, " [quads]");
-        else
-            fprintf(stderr, " [triangles]");
-        if(attribute & MESH_TEXTURE) fprintf(stderr, " [texture coordinates]");
-        if(attribute & MESH_COLOR) fprintf(stderr, " [vertex colors]");
+//        if(attribute & MESH_QUAD)
+//            fprintf(stderr, " [quads]");
+//        else
+//            fprintf(stderr, " [triangles]");
+//        if(attribute & MESH_TEXTURE) fprintf(stderr, " [texture coordinates]");
+//        if(attribute & MESH_COLOR) fprintf(stderr, " [vertex colors]");
 
         if(attribute & MESH_VI){
-            fprintf(stderr, " [VI]");
+//            fprintf(stderr, " [VI]");
             gzread(in, &vertexes, 4 );
         } else if(attribute & MESH_VS){
-            fprintf(stderr, " [VS]");
+//            fprintf(stderr, " [VS]");
             unsigned short t_vertexes;
             gzread(in, &t_vertexes, 2 );
             vertexes = t_vertexes;
         } else {
-            fprintf(stderr, " [VB]");
+//            fprintf(stderr, " [VB]");
             unsigned char t_vertexes;
             gzread(in, &t_vertexes, 1 );
             vertexes = t_vertexes;
         }
 
         if(attribute & MESH_II){
-            fprintf(stderr, " [II]");
+//            fprintf(stderr, " [II]");
             gzread(in, &indexes, 4 );
         } else if(attribute & MESH_IS){
-            fprintf(stderr, " [IS]");
+//            fprintf(stderr, " [IS]");
             unsigned short t_indexes;
             gzread(in, &t_indexes, 2 );
             indexes = t_indexes;
         } else {
-            fprintf(stderr, " [IB]");
+//            fprintf(stderr, " [IB]");
             unsigned char t_indexes;
             gzread(in, &t_indexes, 1 );
             indexes = t_indexes;
         }
-        fprintf(stderr, "\n");
-        fprintf(stderr, "    Vertexes: %d\n", vertexes);
-        fprintf(stderr, "    Indexes: %d\n", indexes);
+//        fprintf(stderr, "\n");
+//        fprintf(stderr, "    Vertexes: %d\n", vertexes);
+//        fprintf(stderr, "    Indexes: %d\n", indexes);
         mesh->vertex_count = vertexes;
         mesh->index_count = indexes;
     }
@@ -391,13 +391,15 @@ int ObjectLoad(const char *filename)
     }
 
     tObjectFrame *frames;
-    fprintf(stderr, "  Allocating memory for animation (%d bytes)...", sizeof(tObjectFrame) * frames_count);
+//    fprintf(stderr, "  Allocating memory for animation (%d bytes)...", sizeof(tObjectFrame) * frames_count);
     if((frames = (tObjectFrame *)malloc(sizeof(tObjectFrame) * frames_count))==NULL){
-        fprintf(stderr, "fail.\n");
+//        fprintf(stderr, "fail.\n");
         free(meshes);
         gzclose(in);
         return -1;
-    } else fprintf(stderr, "ok.\n");
+    } else {
+//        fprintf(stderr, "ok.\n");
+    }
 
     memset(frames, 0, sizeof(tObjectFrame) * frames_count); // заполним значениями NULL все указатели
 
@@ -405,7 +407,7 @@ int ObjectLoad(const char *filename)
         int meshes_in_frame;
         tObjectFrame *frame = &frames[f];
 
-        fprintf(stderr, "   [%d]:\n", f);
+//        fprintf(stderr, "   [%d]:\n", f);
 
         if(meshes_count<256){
             unsigned char t_meshes_in_frame;
@@ -418,7 +420,7 @@ int ObjectLoad(const char *filename)
         } else {
             gzread(in, &meshes_in_frame, 4 );
         }
-        fprintf(stderr, "      Meshes in frame: %d\n", meshes_in_frame);
+//        fprintf(stderr, "      Meshes in frame: %d\n", meshes_in_frame);
         if((meshes_in_frame<0)||(meshes_in_frame>meshes_count)){
             fprintf(stderr, "      Error meshes in frame count.\n");
 
@@ -431,7 +433,7 @@ int ObjectLoad(const char *filename)
         }
 
         frame->meshes_in_frame = meshes_in_frame;
-        fprintf(stderr, "      Allocating memory for frame data (%d bytes).\n", sizeof(tObjectFrameItem)*meshes_in_frame);
+//        fprintf(stderr, "      Allocating memory for frame data (%d bytes).\n", sizeof(tObjectFrameItem)*meshes_in_frame);
         frame->framedata = (tObjectFrameItem*)malloc(sizeof(tObjectFrameItem)*meshes_in_frame);
 //        frame->meshes = malloc()
         for(int m=0; m<meshes_in_frame; m++){
@@ -453,12 +455,12 @@ int ObjectLoad(const char *filename)
             gzread(in, &framedata->color, 4 );
             gzread(in, &framedata->modelmatrix, 16*sizeof(GLfloat) );
 
-            fprintf(stderr, "      Mesh id [%d]", mesh_id);
-            fprintf(stderr, "      Mesh color [%d, %d, %d, %d]\n", framedata->color.r, framedata->color.g, framedata->color.b, framedata->color.a );
-            fprintf(stderr, "      Model matrix:[");
-            for(int i=0; i<16; i++)
-                fprintf(stderr, " %.1f", framedata->modelmatrix[i] );
-            fprintf(stderr, " ]\n");
+//            fprintf(stderr, "      Mesh id [%d]", mesh_id);
+//            fprintf(stderr, "      Mesh color [%d, %d, %d, %d]\n", framedata->color.r, framedata->color.g, framedata->color.b, framedata->color.a );
+//            fprintf(stderr, "      Model matrix:[");
+//            for(int i=0; i<16; i++)
+//                fprintf(stderr, " %.1f", framedata->modelmatrix[i] );
+//            fprintf(stderr, " ]\n");
             framedata->mesh = &meshes[mesh_id];
         }
     }
@@ -503,6 +505,7 @@ int ObjectLoad(const char *filename)
         gzread(in, vbuf, vdatasize);
         glBufferData(GL_ARRAY_BUFFER, vdatasize, vbuf, GL_STATIC_DRAW);
 
+/*
         glVertexAttribPointer((GLuint)0, 3, GL_HALF_FLOAT, GL_TRUE, stride, (GLvoid*)0);    // vertex coordinates
         glEnableVertexAttribArray(0);
         glVertexAttribPointer((GLuint)1, 3, GL_HALF_FLOAT, GL_TRUE, stride, (GLvoid*)(3*2));  // normals
@@ -518,7 +521,7 @@ int ObjectLoad(const char *filename)
                 glVertexAttribPointer((GLuint)3, 4, GL_UNSIGNED_BYTE, GL_TRUE, stride, (GLvoid*)(3*2+3*2));  // color
                 glEnableVertexAttribArray(3);
         }
-
+*/
 #if 0
         char *blog = (char *)vbuf;
         for(int v=0; v<meshes[m].vertex_count; v++){
@@ -749,6 +752,9 @@ int ObjectDrawArrays()
         else if (mesh->vertex_count<65536) index_type = GL_UNSIGNED_SHORT;
         else index_type = GL_UNSIGNED_INT;
 
+        StatisticAdd(0, 1);
+        StatisticAdd(1, indexcount/3);
+
 #ifdef USE_ADJ
         glDrawElements(GL_TRIANGLES_ADJACENCY, indexcount, index_type, (GLvoid*)0);
 #else
@@ -793,12 +799,13 @@ int ObjectDrawArrays()
         else if (mesh->vertex_count<65536) index_type = GL_UNSIGNED_SHORT;
         else index_type = GL_UNSIGNED_INT;
 
+        StatisticAdd(0, 1);
+        StatisticAdd(1, indexcount/3);
 #ifdef USE_ADJ
         glDrawElements(GL_TRIANGLES_ADJACENCY, indexcount, index_type, (GLvoid*)0);
 #else
         glDrawElements(GL_TRIANGLES, indexcount, index_type, (GLvoid*)0);
 #endif
-
 
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
@@ -836,6 +843,8 @@ int ObjectDrawArrays()
         else if (mesh->vertex_count<65536) index_type = GL_UNSIGNED_SHORT;
         else index_type = GL_UNSIGNED_INT;
 
+        StatisticAdd(0, 1);
+        StatisticAdd(1, indexcount/3);
 #ifdef USE_ADJ
         glDrawElements(GL_TRIANGLES_ADJACENCY, indexcount, index_type, (GLvoid*)0);
 #else

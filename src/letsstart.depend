@@ -471,14 +471,15 @@
 1224885600 e:\baden\games\thebestorpg\letsstart\lib\luajit-1.1.5\src\\lualib.h
 	"lua.h"
 
-1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\extensions.cpp
+1259021641 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\extensions.cpp
 	<stdio.h>
 	"extensions.h"
 
-1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\extensions.h
+1259021628 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\extensions.h
 	<windows.h>
 	<stdbool.h>
 	<GL3/gl3.h>
+	"GL/glext.h"
 
 1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\gldraw.cpp
 	"gl/gl3.h"
@@ -496,7 +497,7 @@
 
 1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\gldraw.h
 
-1258844865 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\gltext.cpp
+1259072502 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\gltext.cpp
 	"letters.h"
 	"gl/gl.h"
 	<gl3/gl3.h>
@@ -508,7 +509,7 @@
 	"shader.h"
 	"math.h"
 
-1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\letters.h
+1258985138 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\letters.h
 
 1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\ply.h
 	"gl/gl.h"
@@ -521,7 +522,7 @@
 
 1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\math.h
 
-1258938864 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\main.cpp
+1259072413 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\main.cpp
 	<windows.h>
 	<stdio.h>
 	<gl/gl.h>
@@ -538,6 +539,8 @@
 	"scripts.h"
 	"object.h"
 	"math.h"
+	"framebuf.h"
+	"statistic.h"
 
 1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\gl\glext.h
 	<windows.h>
@@ -575,7 +578,7 @@
 	<GL3/gl3.h>
 	"matrix.h"
 
-1258981521 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\object.cpp
+1259072785 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\object.cpp
 	<vector>
 	<zlib.h>
 	<gl3/gl3.h>
@@ -584,6 +587,7 @@
 	"matrix.h"
 	"shader.h"
 	"math.h"
+	"statistic.h"
 
 1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\ply.cpp
 	<windows.h>
@@ -640,4 +644,23 @@
 1258841056 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\time.cpp
 	<windows.h>
 	"time.h"
+
+1259027026 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\framebuf.cpp
+	<stdlib.h>
+	<stdio.h>
+	"framebuf.h"
+	<gl/gl.h>
+	<gl3/gl3.h>
+	"extensions.h"
+	"shader.h"
+	"matrix.h"
+	"object.h"
+
+1259027037 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\framebuf.h
+
+1259072720 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\statistic.cpp
+	<vector>
+	"statistic.h"
+
+1259072142 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\statistic.h
 

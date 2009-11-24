@@ -61,26 +61,6 @@ void textInit(void)
     const GLubyte charquadind[6] = { 0, 2, 1, 0, 3, 2 };
 #endif
 
-#if 0
-#if 1
-    const tPlyVertexNormalUV charquadvert[4] = {
-    {  0.0,  0.0,  0.0,   0.0, 0.0, 1.0,   0.0, 0.0  },   /* index 0 */
-    {  0.0,  1.0,  0.0,   0.0, 0.0, 1.0,   0.0, 1.0  },   /* index 1 */
-    {  1.0,  1.0,  0.0,   0.0, 0.0, 1.0,   1.0, 1.0  },   /* index 2 */
-    {  1.0,  0.0,  0.0,   0.0, 0.0, 1.0,   1.0, 0.0  } }; /* index 3 */
-    const GLushort charquadind[6] = { 0, 1, 2, 0, 2, 3 };
-//    const GLushort charquadind[6] = { 0, 2, 1, 3 };
-#else
-    HALF charquadvert[4*8];
-    int chi = 0;
-    _cq(0.0); _cq(0.0); _cq(0.0);   _cq(0.0); _cq(0.0); _cq(1.0);   _cq(0.0); _cq(0.0); // index 0
-    _cq(0.0); _cq(1.0); _cq(0.0);   _cq(0.0); _cq(0.0); _cq(1.0);   _cq(0.0); _cq(1.0); // index 1
-    _cq(1.0); _cq(1.0); _cq(0.0);   _cq(0.0); _cq(0.0); _cq(1.0);   _cq(1.0); _cq(1.0); // index 2
-    _cq(1.0); _cq(0.0); _cq(0.0);   _cq(0.0); _cq(0.0); _cq(1.0);   _cq(1.0); _cq(0.0); // index 3
-    const GLubyte charquadind[6] = { 0, 1, 2, 0, 2, 3 };
-#endif
-#endif
-
     //glUseProgram(shader_vertexnormaluvcolor.shaderprogram);
     ShaderSetCurent(SHADER_TEXT);
 
@@ -92,33 +72,13 @@ void textInit(void)
 
     glVertexAttribPointer((GLuint)0, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);    // vertex (in_Position)
     glEnableVertexAttribArray(0);
-    glDisableVertexAttribArray(1);
-    glDisableVertexAttribArray(2);
-    glDisableVertexAttribArray(3);
-#if 0
-#if 1
-    glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, sizeof(tPlyVertexNormalUV), (GLvoid*)0);    // vertex (in_Position)
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer((GLuint)1, 3, GL_FLOAT, GL_FALSE, sizeof(tPlyVertexNormalUV), (GLvoid*)sizeof(tPlyVertex));   // normal (in_Normal)
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer((GLuint)2, 2, GL_FLOAT, GL_FALSE, sizeof(tPlyVertexNormalUV), (GLvoid*)(sizeof(tPlyVertexNormal))); // uv (in_UV)
-    glEnableVertexAttribArray(2);
-    glDisableVertexAttribArray(3);
-#else
-    glVertexAttribPointer((GLuint)0, 3, GL_HALF_FLOAT, GL_FALSE, 8*sizeof(tPlyVertexNormalUV), (GLvoid*)0);    // vertex (in_Position)
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer((GLuint)1, 3, GL_HALF_FLOAT, GL_FALSE, 8*sizeof(tPlyVertexNormalUV), (GLvoid*)(3*sizeof(charquadvert[0])));   // normal (in_Normal)
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer((GLuint)2, 2, GL_HALF_FLOAT, GL_FALSE, 8*sizeof(tPlyVertexNormalUV), (GLvoid*)(6*(sizeof(charquadvert[0])))); // uv (in_UV)
-    glEnableVertexAttribArray(2);
-    glDisableVertexAttribArray(3);
-#endif
-#endif
+
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, charquad_vbo[1]);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(charquadind), charquadind, GL_STATIC_DRAW);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+//    glDisableVertexAttribArray(0);
 
     tcolours symbol[8*8];
     memset(symbol, 0, sizeof(symbol));
@@ -203,7 +163,7 @@ void DrawChar(unsigned char ch, bool smooth)
 
     ShaderDoModelMatrix(modelmatrix);
     //glUniformMatrix4fv(shader_current->modelview_u, 1, GL_FALSE, modelmatrix);
-    translate(modelmatrix, 0.02, 0.0, 0.0);
+    translate(modelmatrix, 0.03, 0.0, 0.0);
 
 //    glEnableVertexAttribArray(0);
 //    glEnableVertexAttribArray(1);
@@ -251,12 +211,13 @@ void drawText(float x, float y, int app)
 //    multiply4x4n(commmatrix, modelmatrix, cameramatrix);
 
     memcpy(modelmatrix, identitymatrix, sizeof(GLfloat) * 16);
-    scale(modelmatrix, 0.02, 0.02, 1.0);
+    scale(modelmatrix, 0.04, 0.04, 1.0);
     translate(modelmatrix, x, y, -1.0);
 
 //    glUniformMatrix4fv(shader_current->modelview_u, 1, GL_FALSE, modelmatrix);
     ShaderDoModelMatrix(modelmatrix);
     glDisable(GL_DEPTH_TEST);
+    glDisable(GL_BLEND);
 
     glEnable(GL_TEXTURE_2D);
     if(app == TXT_APP_NORMAL){
@@ -292,6 +253,7 @@ void drawText(float x, float y, int app)
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_TEXTURE_2D);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
 }
 
 void addFlyText(float x, float y, float scale, const char *text)

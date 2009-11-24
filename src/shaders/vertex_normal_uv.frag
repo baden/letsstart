@@ -5,10 +5,10 @@ precision highp float;
 uniform vec3 colour;
 uniform sampler2D Texture0;
 
-in  vec3 p_Color;
+//in vec3 p_Color;
 in vec2 p_TexCoord;
 
-in float diffuse;
+//in float diffuse;
 in vec3 normal, lightDir;
 
 out vec4 gl_FragColor;
@@ -30,22 +30,32 @@ void main(void) {
 
     n = normalize(normal);
     intensity = dot(lightDir, n);
+    vec2 offx = vec2(0.1, 0.0);
+    vec2 offy = vec2(0.0, 0.1);
 
 //    if(intensity>0.70) gl_FragColor = vec4(colour*1.0, 1.0);
 //    else if(intensity>0.4) gl_FragColor = vec4(colour*0.5, 1.0);
 //    else if(intensity>0.2) gl_FragColor = vec4(colour*0.3, 1.0);
 //    else gl_FragColor = vec4(colour*0.2, 1.0);
 
-    if(intensity>0.70) gl_FragColor = vec4(p_Color*1.0, 1.0);
-    else if(intensity>0.4) gl_FragColor = vec4(p_Color*0.5, 1.0);
-    else if(intensity>0.2) gl_FragColor = vec4(p_Color*0.3, 1.0);
-    else gl_FragColor = vec4(p_Color*0.2, 1.0);
+//    if(intensity>0.70) gl_FragColor = vec4(p_Color*1.0, 1.0);
+//    else if(intensity>0.4) gl_FragColor = vec4(p_Color*0.5, 1.0);
+//    else if(intensity>0.2) gl_FragColor = vec4(p_Color*0.3, 1.0);
+    //else gl_FragColor = vec4(p_Color*0.2, 1.0);
 
 //    gl_FragColor = vec4(colour*intensity, 1.0);
     //gl_FragColor = vec4(p_Color * intensity, 1.0);
 //    gl_FragColor = vec4(p_Color * intensity, 1.0);
-    gl_FragColor = texture2D(Texture0, p_TexCoord) * vec4(p_Color * intensity, 1.0);
-//    gl_FragColor = vec4(p_TexCoord, 0.5, 1.0);
+//    gl_FragColor = texture2D(Texture0, p_TexCoord) * vec4(p_Color * intensity, 1.0);
+    vec4 col0 = texture2D(Texture0, p_TexCoord);
+    vec4 colpx = texture2D(Texture0, p_TexCoord + offx);
+    vec4 colmx = texture2D(Texture0, p_TexCoord - offx);
+    vec4 colpy = texture2D(Texture0, p_TexCoord + offy);
+    vec4 colmy = texture2D(Texture0, p_TexCoord - offy);
+
+    gl_FragColor = (col0*4 + colpx + colmx + colpy + colmy)/8;
+
+//    gl_FragColor = texture2D(Texture0, p_TexCoord);
 #endif
 
 #if 0
