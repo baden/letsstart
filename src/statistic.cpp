@@ -10,7 +10,15 @@ void StatisticInit()
 
 void StatisticAdd(int index, int value)
 {
-    while(statistic.size() <= index) statistic.push_back(0);
+    // pushing in loop is too slow
+    // while(statistic.size() <= index) statistic.push_back(0);
+
+    if(statistic.size() <= index)
+    {
+	// fastest way
+	// int values is zeroed already
+	statistic.resize(index+1)
+    }
     statistic[index] += value;
 }
 
