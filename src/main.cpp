@@ -118,6 +118,7 @@ void DoPrepare()
 //    ObjectLoad("../blender/models/Sintel.bdsm2.gz");
     ObjectLoad("../blender/models/Animation.bdsm2.gz");
 //    ObjectLoad("../blender/models/Collect1.bdsm2.gz");
+//    ObjectLoad("../blender/models/Tor.bdsm2.gz");
     ObjectLoad("../blender/models/Medusa.bdsm2.gz");
 //    ObjectLoad("../blender/models/Molot.bdsm2.gz");
 //    ObjectLoad("../blender/models/Quad.bdsm2.gz");

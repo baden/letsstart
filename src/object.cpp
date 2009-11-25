@@ -421,7 +421,8 @@ int ObjectLoad(const char *filename)
             gzread(in, &meshes_in_frame, 4 );
         }
 //        fprintf(stderr, "      Meshes in frame: %d\n", meshes_in_frame);
-        if((meshes_in_frame<0)||(meshes_in_frame>meshes_count)){
+//        if((meshes_in_frame<0)||(meshes_in_frame>meshes_count)){
+        if(meshes_in_frame<0){
             fprintf(stderr, "      Error meshes in frame count.\n");
 
             for(int ff=0; ff<frames_count; ff++)
@@ -753,11 +754,12 @@ int ObjectDrawArrays()
         else index_type = GL_UNSIGNED_INT;
 
         StatisticAdd(0, 1);
-        StatisticAdd(1, indexcount/3);
 
 #ifdef USE_ADJ
+        StatisticAdd(1, indexcount/6);
         glDrawElements(GL_TRIANGLES_ADJACENCY, indexcount, index_type, (GLvoid*)0);
 #else
+        StatisticAdd(1, indexcount/3);
         glDrawElements(GL_TRIANGLES, indexcount, index_type, (GLvoid*)0);
 #endif
         glDisableVertexAttribArray(0);
@@ -800,10 +802,11 @@ int ObjectDrawArrays()
         else index_type = GL_UNSIGNED_INT;
 
         StatisticAdd(0, 1);
-        StatisticAdd(1, indexcount/3);
 #ifdef USE_ADJ
+        StatisticAdd(1, indexcount/6);
         glDrawElements(GL_TRIANGLES_ADJACENCY, indexcount, index_type, (GLvoid*)0);
 #else
+        StatisticAdd(1, indexcount/3);
         glDrawElements(GL_TRIANGLES, indexcount, index_type, (GLvoid*)0);
 #endif
 
@@ -844,10 +847,11 @@ int ObjectDrawArrays()
         else index_type = GL_UNSIGNED_INT;
 
         StatisticAdd(0, 1);
-        StatisticAdd(1, indexcount/3);
 #ifdef USE_ADJ
+        StatisticAdd(1, indexcount/6);
         glDrawElements(GL_TRIANGLES_ADJACENCY, indexcount, index_type, (GLvoid*)0);
 #else
+        StatisticAdd(1, indexcount/3);
         glDrawElements(GL_TRIANGLES, indexcount, index_type, (GLvoid*)0);
 #endif
 //        glDrawElements(GL_TRIANGLES, indexcount, index_type, (GLvoid*)0);

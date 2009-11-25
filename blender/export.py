@@ -211,11 +211,14 @@ def setSinglePath(filename):
 #		obj_list = {}
 #		used_materials = []
 		mesh_list = []
-		mesh_for_obj = []
-		link_frame_obj_mesh = [{} for i in xrange(end-start+1)]
-		link_obj_mesh = {}
-		link_mesh_frame = {}
 		mesh_by_frame = [[] for i in xrange(end-start+1)]
+		omeshes = []
+		link_omeshes_mesh = {}
+		link_mesh_frame = {}
+
+#		mesh_for_obj = []
+#		link_frame_obj_mesh = [{} for i in xrange(end-start+1)]
+#		link_obj_mesh = {}
 		while frame <= end:
 #			file_info.write('  Frame: %d\n' % frame)
 			Blender.Set('curframe', frame)
@@ -231,6 +234,7 @@ def setSinglePath(filename):
 #					file_info.write('    Object type: ' + object.type + '\n')
 #				write('    Objects count (including hidden & unsupported): ' + str(len(objects)) + '\n')
 				mesh = BPyMesh.getMeshFromObject(object, None, EXPORT_APPLY_MODIFIERS, False, scene)
+				omesh = object.getData(True)
 				if (mesh) and (len(mesh.faces)):
 
 #					mesh.transform(object.matrixWorld)
@@ -251,19 +255,51 @@ def setSinglePath(filename):
 					if 0:
 						ANIMATION = True	# Fake command
 					else:
-						if not object in mesh_for_obj:
-							mesh_list.append(mesh)
-							mesh_by_frame[frame-start].append(mesh)
-#							file_info.write('+mesh for ' + object.name + '\n')
-							mesh_for_obj.append(object)
-							link_frame_obj_mesh[frame-start][mesh] = object
-							link_obj_mesh[object] = mesh
-							link_mesh_frame[mesh] = frame
+#						file_info.write('Original mesh ' + omesh.name + ' for object ' + object.name + '\n')
+#						file_info.write('Original mesh ' + omesh + ' for object ' + object.name + '\n')
+
+
+						if omesh in omeshes:
+#							file_info.write('+reusing mesh "' + omesh + '" for object "' + object.name + '\n')
+							mesh_by_frame[frame-start].append((link_omeshes_mesh[omesh], object))
 						else:
+#							file_info.write('+mesh "' + omesh + '" for object "' + object.name + '"\n')
+							omeshes.append(omesh)
+							link_omeshes_mesh[omesh] = mesh
+							mesh_list.append(mesh)
+							mesh_by_frame[frame-start].append((mesh, object))
+							link_mesh_frame[mesh] = frame
+
+
+#						if not object in mesh_for_obj:
+#
+#							if omesh in omeshes:
+#								file_info.write('+reusing mesh for link ' + object.name + ' -> ' + link_omeshes_obj[omesh].name +'\n')
+#
+#								mesh_by_frame[frame-start].append(link_obj_mesh[link_omeshes_obj[omesh]])
+#								link_frame_obj_mesh[frame-start][link_obj_mesh[link_omeshes_obj[omesh]]] = object
+#								mesh_for_obj.append(object)
+#								link_obj_mesh[object] = link_obj_mesh[link_omeshes_obj[omesh]]
+#
+#							else:
+#								file_info.write('+mesh for ' + object.name + '\n')
+#
+#								omeshes.append(omesh)
+#								link_omeshes_obj[omesh] = object
+#
+#								mesh_list.append(mesh)
+#								mesh_by_frame[frame-start].append(mesh)
+#
+#								link_frame_obj_mesh[frame-start][mesh] = object
+#								mesh_for_obj.append(object)
+#								link_obj_mesh[object] = mesh
+#								link_mesh_frame[mesh] = frame
+#						else:
 #							file_info.write('+reusing mesh for ' + object.name + '\n')
-							mesh_by_frame[frame-start].append(link_obj_mesh[object])
-							link_frame_obj_mesh[frame-start][link_obj_mesh[object]] = object
-#							mesh_list.append(link_obj_mesh[object])
+#
+#							mesh_by_frame[frame-start].append(link_obj_mesh[object])
+#							link_frame_obj_mesh[frame-start][link_obj_mesh[object]] = object
+##							mesh_list.append(link_obj_mesh[object])
 
 #						file_info.write('    Object has a ipo\n')
 #					else:
@@ -310,6 +346,11 @@ def setSinglePath(filename):
 #			mesh = BPyMesh.getMeshFromObject(object, None, EXPORT_APPLY_MODIFIERS, False, scene)
 #			if mesh:
 #			frame+=1
+		file_info.write('Original meshes used: %d\n' % len(omeshes))
+		for omesh in omeshes:
+#			file_info.write(' mesh ' + omesh.name + '\n')
+			file_info.write(' mesh ' + omesh + '\n')
+
 		mesh_max = len(mesh_list)
 
 		file_info.write('   meshes: %d\n' % mesh_max )
@@ -327,10 +368,10 @@ def setSinglePath(filename):
 #			MESH_QUADS = True
 			MESH_QUADS = False
 # Проверим состоит ли меш только из квадов
-			for face in mesh.faces:
-				if len(face) == 3:
-					MESH_QUADS = False
-					break
+#			for face in mesh.faces:
+#				if len(face) == 3:
+#					MESH_QUADS = False
+#					break
 
 			if not MESH_QUADS:
 				file_info.write('    convert to triangles\n')
@@ -339,6 +380,7 @@ def setSinglePath(filename):
 				Mesh.Mode(Mesh.SelectModes['FACE'])
 				mesh.sel = True
 				mesh.quadToTriangle(0)
+				mesh.recalcNormals(0)
 				scene.objects.unlink(tempob)
 				Mesh.Mode(oldmode)
 
@@ -524,7 +566,7 @@ def setSinglePath(filename):
 #			else:
 #				file_model.write(struct.pack("<I", mif))
 
-			for mesh in mesh_by_frame[frame-start]:
+			for mesh,mobject in mesh_by_frame[frame-start]:
 				i = mesh_list.index(mesh)
 				mcolor = [255, 255, 255, 255]
 
@@ -540,7 +582,7 @@ def setSinglePath(filename):
 					if mcolor[x]<0: mcolor[x] = 0
 					if mcolor[x]>255: mcolor[x] = 255
 
-				mobject = link_frame_obj_mesh[frame-start][mesh]
+#				mobject = link_frame_obj_mesh[frame-start][mesh]
 				file_info.write('     mesh "' + mesh.name + '"[%d] for object "'%(i,) + mobject.name + '"' )
 				packmwrite(file_model, mesh_max, i)
 				file_info.write('  color: [%d,%d,%d,%d]\n' % tuple(mcolor) )
