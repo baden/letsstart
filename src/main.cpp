@@ -119,10 +119,10 @@ void DoPrepare()
     ObjectLoad("../blender/models/Animation.bdsm2.gz");
 //    ObjectLoad("../blender/models/Collect1.bdsm2.gz");
 //    ObjectLoad("../blender/models/Tor.bdsm2.gz");
-    ObjectLoad("../blender/models/Medusa.bdsm2.gz");
-//    ObjectLoad("../blender/models/Molot.bdsm2.gz");
+//    ObjectLoad("../blender/models/Medusa.bdsm2.gz");
+    ObjectLoad("../blender/models/Molot.bdsm2.gz");
 //    ObjectLoad("../blender/models/Quad.bdsm2.gz");
-//    ObjectLoad("../blender/models/Quad.bdsm2.gz");
+    ObjectLoad("../blender/models/Tree1.bdsm2.gz");
 //    ObjectLoad("../blender/models/NotEvFrame.bdsm2.gz");
 //    ObjectLoad("../blender/models/Wall001.bdsm2.gz");
     ObjectLoad("../blender/models/Animation.bdsm2.gz");
@@ -283,7 +283,7 @@ void DoDraw(HDC hDC)
 //            glUniformMatrix4fv(shader_current->modelview_u, 1, GL_FALSE, commmatrix);
                 CUR_COLOR(0.0f, 1.0f, 0.0f);
                 //PlyDraw(&model02);
-                ObjectDraw(3+((ix+iy)%6), frame);
+                ObjectDraw(2+((ix+iy)%8), frame);
                 rotate_r(modelmatrix, -25.0*(ix+iy*2), Z_AXIS);
             }
             translate(modelmatrix, MAP_DX, 0.0, 0.0);

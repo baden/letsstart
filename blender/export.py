@@ -7,7 +7,6 @@ import struct
 import math
 
 MODEL_HEADER = 'BDM2'
-#MATERIAL_HEADER = 'MATS'
 ANIMATION_HEADER = 'ANIM'
 VBO_HEADER = 'VBOD'
 
@@ -55,7 +54,6 @@ def __HalfToFloat(h):
 				e -= 1
 			e += 1
 			f &= ~0x00000400
-#			print s,e,f
 	elif e == 31:
 		if f == 0:
 			return int((s << 31) | 0x7f800000)
@@ -68,31 +66,12 @@ def __HalfToFloat(h):
 	return int((s << 31) | (e << 23) | f)
 
 def FloatToHalf(f):
-
-#    union { float f; uint32_t i; } v;
-#    v.f = i;
-#    return floatToHalfI(v.i);
-
-#	v = struct.unpack('f', f)
 	str = struct.pack('f', f)
 	i = struct.unpack('I', str)
-#	h = __FloatToHalf(i[0])
 	return int(__FloatToHalf(i[0]))
 
-	# hack to coerce to float
-#	str = struct.pack('I',x)
-#	f=struct.unpack('f', str)
-#	return f
-
 def HalfToFloat(FP16):
-#	v = struct.unpack('H', FP16)
-#	i = struct.pack('I', FP16)
-#	v = struct.unpack('
-
-#	x = __HalfToFloat(v[0])
 	x = __HalfToFloat(FP16)
-
-	# hack to coerce to float
 	str = struct.pack('I', x)
 	f = struct.unpack('f', str)
 	return float(f[0])
@@ -129,9 +108,7 @@ base = "."
 
 # New name based on old with a different extension
 def newFName(filename, ext):
-#    return filename[: -len(filename.split('.', -1)[-1]) ] + ext
 	print("Path base: " + base)
-#	newfilename = relpath(base, "model1.bdsm2")
 	newfilename = base + "\\model1.bdsm2"
 	return newfilename
 
@@ -156,16 +133,11 @@ def rvec3d(v):	return round(v[0], 6), round(v[1], 6), round(v[2], 6)
 def rvec2d(v):	return round(v[0], 6), round(v[1], 6)
 
 def setSinglePath(filename):
-#	global GUIPARAMS, PARAMS
-#	GUIPARAMS['Path'].val = filename
-#	PARAMS['ImagePaths'] = [filename]
         base = os.path.dirname(filename)
 	print('Base path: ' + base)
 	print('Relative path: ' + relpath('.', base))
 	base = relpath('.', base)
 
-#	is_editmode = Blender.Window.EditMode()
-#	if is_editmode:
 	Blender.Window.EditMode(0, '', 0)
 
 	print('Models count: %d' % len(bpy.data.scenes))
@@ -186,7 +158,6 @@ def setSinglePath(filename):
 		try:
 			import gzip
 			file_model = gzip.open(base + "\\" + scene.name +".bdsm2.gz", "wb")
-#			file_info = gzip.open(base + "\\" + scene.name +".bdsi2.gz", "w")
 		except:
 			print "Failed to compression modules, exporting uncompressed"
 			USE_GZIP = False
@@ -200,156 +171,64 @@ def setSinglePath(filename):
 
 		ANIMATION = False
 
-# Pass 1 - validata scene for animation required
+# Pass 1 - validate scene for animation required and collect meshes
+
 		render = scene.render
 		start =	render.sFrame
 		end =	render.eFrame
 		if end < start: start, end = end, start
-#		if start==end: ANIMATION = False
 		saveframe = Blender.Get('curframe')	# save current active frame
 		frame = start
-#		obj_list = {}
-#		used_materials = []
 		mesh_list = []
 		mesh_by_frame = [[] for i in xrange(end-start+1)]
 		omeshes = []
 		link_omeshes_mesh = {}
 		link_mesh_frame = {}
 
-#		mesh_for_obj = []
-#		link_frame_obj_mesh = [{} for i in xrange(end-start+1)]
-#		link_obj_mesh = {}
 		while frame <= end:
-#			file_info.write('  Frame: %d\n' % frame)
 			Blender.Set('curframe', frame)
 
-#			objects = scene.objects
-#			myobjects = []
-#			objects = [object for object in scene.objects if (object.type == 'Mesh') and (not object.restrictRender) and (not object.restrictDisplay) and (1 in object.layers)]
 			objects = [object for object in scene.objects if (object.type == 'Mesh') and (not object.restrictRender) and (1 in object.layers)]
 
 			for object in objects:
-#				if (object.type == 'Mesh') and (not object.restrictRender) and (1 in object.layers):
-#					file_info.write('    Object type: ' + type(object) + '\n')
-#					file_info.write('    Object type: ' + object.type + '\n')
-#				write('    Objects count (including hidden & unsupported): ' + str(len(objects)) + '\n')
 				mesh = BPyMesh.getMeshFromObject(object, None, EXPORT_APPLY_MODIFIERS, False, scene)
 				omesh = object.getData(True)
 				if (mesh) and (len(mesh.faces)):
-
-#					mesh.transform(object.matrixWorld)
-					#print 'Object:', object.name, '   matrix:', object.matrixWorld
-
 					try:
 						ipo = object.ipo
 					except:
 						ipo = None
 					if ipo:
-#					if 0:
 						ANIMATION = True
-#						mesh_list.append(mesh)
-#						mesh_by_frame[frame-start].append(mesh)
-#						link_frame_obj_mesh[frame-start][mesh] = object
-#						link_obj_mesh[object] = mesh
-#						link_mesh_frame[mesh] = frame
-					if 0:
-						ANIMATION = True	# Fake command
+
+					if omesh in omeshes:
+#						file_info.write('+reusing mesh "' + omesh + '" for object "' + object.name + '\n')
+						mesh_by_frame[frame-start].append((link_omeshes_mesh[omesh], object))
 					else:
-#						file_info.write('Original mesh ' + omesh.name + ' for object ' + object.name + '\n')
-#						file_info.write('Original mesh ' + omesh + ' for object ' + object.name + '\n')
-
-
-						if omesh in omeshes:
-#							file_info.write('+reusing mesh "' + omesh + '" for object "' + object.name + '\n')
-							mesh_by_frame[frame-start].append((link_omeshes_mesh[omesh], object))
-						else:
-#							file_info.write('+mesh "' + omesh + '" for object "' + object.name + '"\n')
-							omeshes.append(omesh)
-							link_omeshes_mesh[omesh] = mesh
-							mesh_list.append(mesh)
-							mesh_by_frame[frame-start].append((mesh, object))
-							link_mesh_frame[mesh] = frame
-
-
-#						if not object in mesh_for_obj:
-#
-#							if omesh in omeshes:
-#								file_info.write('+reusing mesh for link ' + object.name + ' -> ' + link_omeshes_obj[omesh].name +'\n')
-#
-#								mesh_by_frame[frame-start].append(link_obj_mesh[link_omeshes_obj[omesh]])
-#								link_frame_obj_mesh[frame-start][link_obj_mesh[link_omeshes_obj[omesh]]] = object
-#								mesh_for_obj.append(object)
-#								link_obj_mesh[object] = link_obj_mesh[link_omeshes_obj[omesh]]
-#
-#							else:
-#								file_info.write('+mesh for ' + object.name + '\n')
-#
-#								omeshes.append(omesh)
-#								link_omeshes_obj[omesh] = object
-#
-#								mesh_list.append(mesh)
-#								mesh_by_frame[frame-start].append(mesh)
-#
-#								link_frame_obj_mesh[frame-start][mesh] = object
-#								mesh_for_obj.append(object)
-#								link_obj_mesh[object] = mesh
-#								link_mesh_frame[mesh] = frame
-#						else:
-#							file_info.write('+reusing mesh for ' + object.name + '\n')
-#
-#							mesh_by_frame[frame-start].append(link_obj_mesh[object])
-#							link_frame_obj_mesh[frame-start][link_obj_mesh[object]] = object
-##							mesh_list.append(link_obj_mesh[object])
-
-#						file_info.write('    Object has a ipo\n')
-#					else:
-#						file_info.write('    Object has no ipo\n')
+#						file_info.write('+mesh "' + omesh + '" for object "' + object.name + '"\n')
+						omeshes.append(omesh)
+						link_omeshes_mesh[omesh] = mesh
+						mesh_list.append(mesh)
+						mesh_by_frame[frame-start].append((mesh, object))
+						link_mesh_frame[mesh] = frame
 
 					materials = mesh.materials
 					if materials:
-						# сохраняются материалы только для тех объектов, которым назначен 1 материал
-#						if len(materials) == 1:	
-#							if not materials[0] in used_materials: used_materials.append(materials[0])
 						for material in materials:
 							try:
 								ipo = material.ipo
 							except:
 								ipo = None
 							if ipo:
-#								obj_anim[object] = True;
 								ANIMATION = True
-#								file_info.write('    Object has a ipo in materials\n')
-#							else:
-#								file_info.write('    Object has no ipo in materials\n')
-#						if ANIMATION: file_info.write('    Object has animation\n')
 
 				#mesh.unlink()
 
-#			file_info.write(' Collect objects count = %d\n' % len(myobjects))
-
 			frame+=1
-
-
-#		file_info.write('  Used materials: %d\n' % len(used_materials))
-#		for i, material in enumerate(used_materials):
-#			if material != None:
-#				file_info.write('   material "' + material.name + '":')
-#				file_info.write('   color: [%.3f,%.3f,%.3f]\n' % (material.R, material.G, material.B))
-#			else:
-#				file_info.write('   None material\n')
 			
-# Pass 2 - collect meshes
-#		meshes = []
-#		frame = start
-#		while frame <= end:
-#			objects = [object for object in scene.objects if (object.type == 'Mesh') and (not object.restrictRender) and (1 in object.layers)]
-#			mesh = BPyMesh.getMeshFromObject(object, None, EXPORT_APPLY_MODIFIERS, False, scene)
-#			if mesh:
-#			frame+=1
-		file_info.write('Original meshes used: %d\n' % len(omeshes))
-		for omesh in omeshes:
-#			file_info.write(' mesh ' + omesh.name + '\n')
-			file_info.write(' mesh ' + omesh + '\n')
+#		file_info.write('Meshes used: %d\n' % len(omeshes))
+#		for omesh in omeshes:
+#			file_info.write(' mesh ' + omesh + '\n')
 
 		mesh_max = len(mesh_list)
 
@@ -364,7 +243,7 @@ def setSinglePath(filename):
 			file_info.write('    [%d] mesh "'%(mi,) + mesh.name + '"  (frame = %d)\n' % frame)
 			Blender.Set('curframe', frame)
 
-# Чето у меня не пашут GL_QUADS
+# OpenGL 3.x  GL_QUADS is deprecated
 #			MESH_QUADS = True
 			MESH_QUADS = False
 # Проверим состоит ли меш только из квадов
@@ -380,7 +259,7 @@ def setSinglePath(filename):
 				Mesh.Mode(Mesh.SelectModes['FACE'])
 				mesh.sel = True
 				mesh.quadToTriangle(0)
-				mesh.recalcNormals(0)
+#				mesh.recalcNormals(0)
 				scene.objects.unlink(tempob)
 				Mesh.Mode(oldmode)
 
@@ -477,23 +356,9 @@ def setSinglePath(filename):
 
 			file_info.write('       Mesh verts = %d\n' % vl);
 			packwrite(file_model, vl);
-#			if vl < 256:
-#				file_model.write(struct.pack("<c", chr(vl)))
-#			elif vl < 65536:
-#				file_model.write(struct.pack("<H", vl))
-#			else:
-#				file_model.write(struct.pack("<I", vl))
 
 			file_info.write('       Mesh indexes = %d\n' % il)
 			packwrite(file_model, il);
-#			if il < 256:
-#				file_model.write(struct.pack("<c", chr(il)))
-#			elif il < 65536:
-#				file_model.write(struct.pack("<H", il))
-#			else:
-#				file_model.write(struct.pack("<I", il))
-#			vert_data.append('')
-#			file_info.write('    Vertexes:\n')
 			vind=0
 			for v in verts:
 #				file_info.write('       [%d]:' % vind)
@@ -559,22 +424,15 @@ def setSinglePath(filename):
 			mif = len(mesh_by_frame[frame-start])
 			file_info.write('     meshes in frame: %d\n' % mif)
 			packmwrite(file_model, mesh_max, mif);
-#			if mif < 256:
-#				file_model.write(struct.pack("<c", chr(mif)))
-#			elif mif < 65536:
-#				file_model.write(struct.pack("<H", mif))
-#			else:
-#				file_model.write(struct.pack("<I", mif))
 
 			for mesh,mobject in mesh_by_frame[frame-start]:
 				i = mesh_list.index(mesh)
 				mcolor = [255, 255, 255, 255]
 
-				materials = mesh.materials
+				materials = mobject.getMaterials()
+				if not materials: materials = mesh.materials
+
 				if materials:
-#					matidx = link_frame_obj_mesh[frame-start][mesh].activeMaterial
-#					if materials[matidx]:
-#						mcolor = [int(materials[matidx].R*255), int(materials[matidx].G*255), int(materials[matidx].B*255), int(255) ]
 					if materials[0]:
 						mcolor = [int(materials[0].R*255), int(materials[0].G*255), int(materials[0].B*255), int(255) ]
 
@@ -582,11 +440,9 @@ def setSinglePath(filename):
 					if mcolor[x]<0: mcolor[x] = 0
 					if mcolor[x]>255: mcolor[x] = 255
 
-#				mobject = link_frame_obj_mesh[frame-start][mesh]
 				file_info.write('     mesh "' + mesh.name + '"[%d] for object "'%(i,) + mobject.name + '"' )
 				packmwrite(file_model, mesh_max, i)
 				file_info.write('  color: [%d,%d,%d,%d]\n' % tuple(mcolor) )
-#				file_model.write(struct.pack("<I", (i)))
 				file_model.write(struct.pack("<4c", chr(mcolor[0]),chr(mcolor[1]),chr(mcolor[2]),chr(mcolor[3])))
 
 				file_info.write('       matrix:');
@@ -599,10 +455,6 @@ def setSinglePath(filename):
 				file_model.write(struct.pack("<4f", mobject.matrixWorld[2][0], mobject.matrixWorld[2][1], mobject.matrixWorld[2][2], mobject.matrixWorld[2][3]))
 				file_model.write(struct.pack("<4f", mobject.matrixWorld[3][0], mobject.matrixWorld[3][1], mobject.matrixWorld[3][2], mobject.matrixWorld[3][3]))
 
-
-#						file.write(' color: [%.3f,%.3f,%.3f]\n' % (material.R, material.G, material.B))
-#			for mesh, object in link_frame_obj_mesh[frame-start].items():
-#				file_info.write('     mesh "' + mesh.name + '" for object "' + object.name + '"\n' )
 			frame+=1
 
 # Save vbo
@@ -613,24 +465,17 @@ def setSinglePath(filename):
 			file_model.write(index_data[i])
 			file_info.write('     Vertex data size = %d bytes\n' % len(vert_data[i]))
 			file_info.write('     Index data size = %d bytes\n' % len(index_data[i]))
-#		vert_data = ['' for i in xrange(len(mesh_list))];
-#		index_data = ['' for i in xrange(len(mesh_list))];
-
 
 
 		Blender.Set('curframe', saveframe)	# restore current active frame
-#...
+
 		file_info.close();
 		file_model.close();
 
 	savescene.makeCurrent()			# restore active scene
 	Window.DrawProgressBar( 1.0, "Finished!" )
 
-#	print('Model file name for save:' + newFName(filename, 'bdsm2'))
 	return
 
-
-#Window.FileSelector(setSinglePath, 'Choose path for exporting', Blender.sys.expandpath('models'))
 Window.FileSelector(setSinglePath, 'Choose path for exporting', 'models')
-#Window.FileSelector(lambda s:luxProp(scn, "lux", "").set(Blender.sys.dirname(s)+os.sep), "Select file in Lux path")
 Window.RedrawAll()

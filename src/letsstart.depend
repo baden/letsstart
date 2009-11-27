@@ -522,7 +522,7 @@
 
 1258841056 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\math.h
 
-1259160609 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\main.cpp
+1259280765 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\main.cpp
 	<windows.h>
 	<stdio.h>
 	<gl/gl.h>
@@ -658,7 +658,7 @@
 
 1259027037 e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\framebuf.h
 
-1259072720 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\statistic.cpp
+1259279303 source:e:\baden\games\thebestorpg\letsstart\svn\letsstart\src\statistic.cpp
 	<vector>
 	"statistic.h"
 

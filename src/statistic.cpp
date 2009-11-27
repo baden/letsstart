@@ -17,7 +17,7 @@ void StatisticAdd(int index, int value)
     {
 	// fastest way
 	// int values is zeroed already
-	statistic.resize(index+1)
+        statistic.resize(index+1);
     }
     statistic[index] += value;
 }
